@@ -1,0 +1,23 @@
+.small-card {
+    width: 20%;
+    height: 50px;
+    background-color: white;
+    box-shadow: 0 0 5px 1px lightgrey;
+    margin: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+    img {
+        height: 30px;
+        object-fit: cover;
+        border-radius: 50%;
+        background-color: bisque;
+    }
+
+    .price-container {
+        * {
+            font-size: .8rem;
+        }
+    }
+}
