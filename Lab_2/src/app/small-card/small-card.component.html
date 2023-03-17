@@ -1,8 +1,10 @@
 <div class="small-card">
-    <img src={{imgSource}} alt="revenue icon">
-    <div class="price-container">
-        <div class="price">{{ price }}</div>
-        <div class="description"> {{ description }}</div>
+    <div class="price-icon-wrapper">
+        <img class="revenue-icon" src={{imgSource}} alt="revenue icon">
+        <div class="price-container">
+            <div class="{{color}} price">{{ price }}</div>
+            <div class="description"> {{ description }}</div>
+        </div>
     </div>
-    <div class="options"></div>
+    <img class="options" src="../../assets/img/option.png" alt="options icon">
 </div>

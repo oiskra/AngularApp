@@ -10,5 +10,5 @@ export class SmallCardComponent {
   @Input() description = ''
   @Input() price = ''
   @Input() imgSource = '' 
-
+  @Input() color = ""
 }
