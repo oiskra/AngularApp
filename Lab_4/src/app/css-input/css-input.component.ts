@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CSS } from '../models/css.model';
 
 @Component({
   selector: 'app-css-input',
@@ -6,9 +7,19 @@ import { Component } from '@angular/core';
   styleUrls: ['./css-input.component.scss']
 })
 export class CssInputComponent {
-  protected color? = ''
   
+  protected css : CSS = {
+    color: undefined,
+    border: undefined,
+    'box-shadow': undefined,
+    background: undefined
+  }
+
+  protected background = 'lightgreen'
+
   protected onGenerateCss() {
-    throw new Error('Method not implemented.');
+    const {color, background} = this.css;
+    console.log(color);
+    console.log(background);
   }
 }

@@ -1,5 +1,26 @@
 <h2>CSS</h2>
-<div>Kolor: <input type="text"  [(ngModel)]="color"></div>
+<div class="inputs-container">
+    <div class="input-labels-container">
+        <div>Kolor: </div>
+        <div>Tło: </div>
+        <div>Obrys: </div>
+        <div>Cień: </div>
+    </div>
+    <div class="input-fields-container">
+        <input type="color" [(ngModel)]="css.color">
+        <input type="color" value="#fff" [(ngModel)]="css.background">
+        <input type="text" [(ngModel)]="css.border">
+        <input type="text" [(ngModel)]="css['box-shadow']">
+    </div>
+</div>
 <div>
     <button (click)="onGenerateCss()">Generate CSS</button>
 </div>
+
+<div class="styled-container" 
+     [style.color]="css.color"
+     [style.background]="css.background"
+     [style.border]="css.border"
+     [style.boxShadow]="css['box-shadow']">
+    Hello World!
+</div>  

@@ -1,0 +1,27 @@
+.inputs-container {
+    display: flex;
+}
+
+.input-labels-container {
+    * {
+        margin: 5px;
+    }
+}
+
+.input-fields-container {
+    * {
+        display: block;
+    }
+}
+
+.styled-container {
+    font-size: 2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 800;
+    width: 300px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+}
