@@ -1,6 +1,7 @@
 <h1>Stylowanie komponentów</h1>
-<div class="small-cards-container">
-    <app-small-card price="$1,200" description="Revenue" imgSource="../../assets/img/money-bag.png"></app-small-card>
-    <app-small-card price="$50,000" description="Total Revenue" imgSource="../../assets/img/shopping-cart.png"></app-small-card>
+<div class="grid-container">
+    <app-small-card color="green" price="$1,200" description="Revenue" imgSource="../../assets/img/money-bag.png"></app-small-card>
+    <app-small-card style="grid-column: 2;" color="blue" price="$50,000" description="Total Revenue" imgSource="../../assets/img/shopping-cart.png"></app-small-card>
+    <app-medium-card style="grid-row: 2;" title="Total Earnings" value="$39K" percentValue="13.8%" imageSrc="../../assets/img/growth.png"></app-medium-card>
+    <app-medium-card style="grid-column: 2; grid-row: 2;" title="Products Sold" value="2453" percentValue="13.8%" imageSrc="../../assets/img/analytics.png"></app-medium-card>
 </div>
-<app-medium-card></app-medium-card>

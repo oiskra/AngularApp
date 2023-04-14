@@ -1,4 +1,13 @@
-.small-cards-container {
-    width: 500px;
-    display: flex;
+.grid-container {
+    width: 50%;
+    height: fit-content;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 40px 150px;
+    gap: 20px;
+    row-gap: 50px;
+}
+
+* {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }

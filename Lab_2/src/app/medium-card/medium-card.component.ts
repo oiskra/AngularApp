@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-medium-card',
@@ -6,5 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./medium-card.component.scss']
 })
 export class MediumCardComponent {
-
+  @Input() title = ""
+  @Input() value = ""
+  @Input() percentValue = ""
+  @Input() imageSrc = ""
 }
