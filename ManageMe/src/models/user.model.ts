@@ -9,8 +9,8 @@ export type User = {
 }
 
 export enum Role {
-    admin,
-    devops,
-    developer
+    ADMIN,
+    DEVOPS,
+    DEVELOPER
 }
 

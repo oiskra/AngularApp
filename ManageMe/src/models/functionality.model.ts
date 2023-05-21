@@ -6,7 +6,7 @@ export type Functionality = {
     name: string;
     description: string;
     priority: number;
-    projekt: Project;
+    project: Project;
     owner: User;
     state: State;
 }
