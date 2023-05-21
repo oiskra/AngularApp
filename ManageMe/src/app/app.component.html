@@ -1,0 +1,12 @@
+<mat-sidenav-container class="side-nav-container">
+    <mat-sidenav mode="side" color="primary" opened>
+        <mat-nav-list role="navigation">
+            <a mat-list-item href="/projects">Projects</a>
+            <a mat-list-item href="/functionalities">Functionalities</a>
+            <a mat-list-item href="/tasks">Tasks</a>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
