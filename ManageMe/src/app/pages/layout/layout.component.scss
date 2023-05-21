@@ -1,0 +1,22 @@
+.side-nav-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.app-name {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 5px;
+    border-bottom: 1px solid ;
+}
+
+.side-nav-elements-container { 
+    height: 100%; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 100px;
+    align-items: center;
+}
+

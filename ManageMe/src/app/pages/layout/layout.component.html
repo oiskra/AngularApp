@@ -1,0 +1,24 @@
+<mat-sidenav-container class="side-nav-container">
+    <mat-sidenav mode="side" opened>
+        <div class="side-nav-elements-container">
+            <div style="padding-top: 20px;">
+                <span class="app-name">MANAGE ME</span>
+                <mat-nav-list role="navigation">
+                    <a mat-list-item href="/projects">Projects</a>
+                    <a mat-list-item href="/functionalities">Functionalities</a>
+                    <a mat-list-item href="/tasks">Tasks</a>
+                </mat-nav-list>
+            </div>
+            <mat-card>
+                <mat-card-header>
+                    <div mat-card-avatar></div>
+                    <mat-card-title>John Doe</mat-card-title>
+                    <mat-card-subtitle>Developer</mat-card-subtitle>
+                </mat-card-header>
+            </mat-card>
+        </div>  
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
