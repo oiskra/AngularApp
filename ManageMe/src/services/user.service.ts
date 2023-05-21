@@ -6,7 +6,7 @@ import { User } from 'src/models/user.model';
 })
 export class UserService {
 
-  private static _users: User[];
+  private static _users: User[] = [];
 
   constructor() { }
 }
