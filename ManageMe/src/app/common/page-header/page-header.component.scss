@@ -1,0 +1,14 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .title {
+        margin-left: 2rem;
+        font-size: 2rem;
+    }
+
+    .add-btn {
+        margin-right: 2rem;
+    }
+}
