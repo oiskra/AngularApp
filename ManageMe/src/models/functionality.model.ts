@@ -3,10 +3,11 @@ import { State } from "./state.model";
 import { User } from "./user.model";
 
 export type Functionality = {
+    id: number;
     name: string;
     description: string;
     priority: number;
-    project: Project;
-    owner: User;
+    projectId: number;
+    ownerId: number;
     state: State;
 }

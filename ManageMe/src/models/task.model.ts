@@ -3,10 +3,11 @@ import { State } from "./state.model";
 import { User } from "./user.model";
 
 export type Task = {
+    id: number;
     name: string;
     description: string;
     priority: number;
-    functionality: Functionality;
+    functionalityId: number;
     estimatedTimeOfCompletion: string;
     state: State;
     addedAt: Date;
