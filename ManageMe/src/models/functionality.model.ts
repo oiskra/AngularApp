@@ -1,13 +1,12 @@
 import { Project } from "./project.model";
 import { State } from "./state.model";
-import { User } from "./user.model";
 
 export type Functionality = {
-    id: number;
-    name: string;
-    description: string;
-    priority: number;
-    projectId: number;
-    ownerId: number;
-    state: State;
+    functionality_ID: number;
+    functionality_name: string;
+    functionality_description: string;
+    functionality_priority: number;
+    functionality_projectId: number;
+    functionality_ownerId: number;
+    functionality_state: State;
 }

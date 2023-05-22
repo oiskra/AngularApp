@@ -1,12 +1,12 @@
 
 
 export type User = {
-    id: number;
-    login: string,
-    password: string,
-    name: string,
-    surname: string,
-    role: Role
+    user_id: number;
+    user_login: string,
+    user_password: string,
+    user_name: string,
+    user_surname: string,
+    user_role: Role
 }
 
 export enum Role {
