@@ -1,6 +1,5 @@
-import { ChangeDetectorRef, Component, DoCheck, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { Project } from 'src/models/project.model';
 import { ProjectService } from 'src/services/project.service';
 

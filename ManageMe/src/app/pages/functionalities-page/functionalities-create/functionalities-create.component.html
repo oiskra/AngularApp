@@ -1,0 +1,33 @@
+<app-page-header title="Create Functionality" [displayButton]="false"></app-page-header>
+<div class="form-container">
+    <form [formGroup]="functionalityForm" class="form">
+        <mat-form-field class="example-full-width">
+            <mat-label>Name</mat-label>
+            <input type="text" matInput formControlName="name" required/>
+            <mat-error *ngIf="functionalityForm.get('name')?.errors?.['required']">
+                Required!
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>Description</mat-label>
+            <textarea type="text" matInput formControlName="description" required></textarea>
+            <mat-error *ngIf="functionalityForm.get('description')?.errors?.['required']">
+                Required!
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>Priority</mat-label>
+            <mat-select formControlName="priority" required>
+                <mat-option [value]="1">1</mat-option>
+                <mat-option [value]="2">2</mat-option>
+                <mat-option [value]="3">3</mat-option>
+                <mat-option [value]="4">4</mat-option>
+                <mat-option [value]="5">5</mat-option>
+              </mat-select>
+            <mat-error *ngIf="functionalityForm.get('priority')?.errors?.['required']">
+                Required!
+            </mat-error>
+        </mat-form-field>
+    </form>
+    <button [disabled]="functionalityForm.status === 'INVALID'" mat-raised-button color="primary" (click)="onSubmit()">Submit</button>
+</div>

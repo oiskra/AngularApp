@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Project } from 'src/models/project.model';
@@ -9,7 +9,7 @@ import { ProjectService } from 'src/services/project.service';
   templateUrl: './project-create.component.html',
   styleUrls: ['./project-create.component.scss']
 })
-export class ProjectCreateComponent {
+export class ProjectCreateComponent implements OnInit, OnDestroy {
   protected projectForm = this.formBuilder.group({
     name: ['', Validators.required],
     description: ['', Validators.required]

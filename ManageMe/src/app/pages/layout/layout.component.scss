@@ -8,7 +8,6 @@
     font-size: 2rem;
     font-weight: bold;
     margin: 5px;
-    border-bottom: 1px solid ;
 }
 
 .side-nav-elements-container { 
@@ -20,3 +19,6 @@
     align-items: center;
 }
 
+mat-nav-list {
+    margin-top: 20px;
+}

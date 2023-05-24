@@ -19,7 +19,7 @@ export class ProjectService {
     {project_ID: 8, project_name: 'Angular Project', project_description: 'Cool app!'},
     {project_ID: 9, project_name: 'React Project', project_description: 'Cooler app!'}
   ]);
-  public projects$: Observable<Project[]> = this._projects.asObservable();
+  private projects$: Observable<Project[]> = this._projects.asObservable();
   
   private _workingProject: BehaviorSubject<number> = new BehaviorSubject(this._projects.getValue()[0].project_ID);
   private workingProject$: Observable<number> = this._workingProject.asObservable();

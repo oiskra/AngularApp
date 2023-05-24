@@ -1,5 +1,1 @@
-export enum State {
-    TODO,
-    DOING,
-    DONE
-}
+export type State  = 'TODO' | 'DOING' | 'DONE';

@@ -15,17 +15,19 @@ import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
 
 import { ProjectsComponent } from './pages/projects-page/projects.component';
-import { FunctionalitiesComponent } from './pages/functionalitiesPage/functionalities.component';
-import { TasksComponent } from './pages/tasksPage/tasks.component';
-import { UsersComponent } from './pages/usersPage/users.component';
+import { FunctionalitiesComponent } from './pages/functionalities-page/functionalities.component';
+import { TasksComponent } from './pages/tasks-page/tasks.component';
+import { UsersComponent } from './pages/users-page/users.component';
 import { LayoutComponent } from './pages/layout/layout.component';
 import { ProjectDetailsComponent } from './pages/projects-page/project-details/project-details.component';
 import { PageHeaderComponent } from './common/page-header/page-header.component';
 import { ProjectCreateComponent } from './pages/projects-page/project-create/project-create.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProjectEditComponent } from './pages/projects-page/project-edit/project-edit.component';
+import { FunctionalitiesCreateComponent } from './pages/functionalities-page/functionalities-create/functionalities-create.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,7 @@ import { ProjectEditComponent } from './pages/projects-page/project-edit/project
     PageHeaderComponent,
     ProjectCreateComponent,
     ProjectEditComponent,
+    FunctionalitiesCreateComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,7 +58,8 @@ import { ProjectEditComponent } from './pages/projects-page/project-edit/project
     MatCardModule,
     MatIconModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

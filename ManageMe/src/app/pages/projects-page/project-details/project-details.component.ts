@@ -58,8 +58,11 @@ export class ProjectDetailsComponent {
     const allTasks = this.taskService.getAllTasks();
     const allUsers = this.userService.getAllUsers();
 
-    this.details.functionalities = allFuncs.filter(item => item.functionality_projectId === this.selectedId);
-    
+    //this.details.functionalities = allFuncs.filter(item => item.functionality_projectId === this.selectedId);
+    allFuncs.subscribe((data) => {
+      this.details.functionalities = data.filter(item => item.functionality_projectId === this.selectedId);
+    })
+
     this.details.tasks = allTasks.filter(item => {
       return this.details.functionalities.some(func => func.functionality_ID === item.task_functionalityId)
     });
@@ -77,7 +80,7 @@ export class ProjectDetailsComponent {
 
   protected workedHours() {
     return this.details.tasks.reduce((acc, val) => {
-      if(val.task_state === State.DONE) { return acc + val.task_durationInHours}
+      if(val.task_state === 'DONE') { return acc + val.task_durationInHours}
       
       return acc;
     }, 0)

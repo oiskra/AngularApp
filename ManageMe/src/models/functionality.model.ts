@@ -1,4 +1,3 @@
-import { Project } from "./project.model";
 import { State } from "./state.model";
 
 export type Functionality = {

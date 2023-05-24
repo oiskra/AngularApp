@@ -3,11 +3,14 @@
 }
 
 .mat-column-Delete,
-.mat-column-Edit {
+.mat-column-Edit,
+.mat-column-State,
+.mat-column-Priority {
     width: 5%;
 }
 
-.mat-column-Name{
+.mat-column-Name,
+.mat-column-Owner {
     width: 20%;
 }
 
