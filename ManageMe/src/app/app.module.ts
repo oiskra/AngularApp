@@ -16,6 +16,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
+import {DragDropModule} from '@angular/cdk/drag-drop'
 
 import { ProjectsComponent } from './pages/projects-page/projects.component';
 import { FunctionalitiesComponent } from './pages/functionalities-page/functionalities.component';
@@ -63,7 +64,8 @@ import { FunctionalitiesEditComponent } from './pages/functionalities-page/funct
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    DragDropModule
   ],
   providers: [],
   bootstrap: [AppComponent]

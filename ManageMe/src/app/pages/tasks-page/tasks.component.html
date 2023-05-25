@@ -1,1 +1,42 @@
 <app-page-header title="Tasks" buttonTitle="Create Task" (headerButtonClick)="onAddTaskClick()"></app-page-header>
+<div class="drag-n-drop-container">
+    <div class="tasks-container">
+        <h2>To do</h2>
+    
+        <div
+          cdkDropList
+          #toDo="cdkDropList"
+          [cdkDropListData]="tasksToDo"
+          [cdkDropListConnectedTo]="[doing]"
+          class="example-list"
+          (cdkDropListDropped)="drop($event)">
+          <div class="example-box" *ngFor="let task of tasksToDo" cdkDrag>{{task.task_name}}</div>
+        </div>
+    </div>
+    <div class="tasks-container">
+        <h2>Doing</h2>
+    
+        <div
+          cdkDropList
+          #doing="cdkDropList"
+          [cdkDropListData]="tasksDoing"
+          [cdkDropListConnectedTo]="[toDo, done]"
+          class="example-list"
+          (cdkDropListDropped)="drop($event)">
+          <div class="example-box" *ngFor="let task of tasksDoing" cdkDrag>{{task.task_name}}</div>
+        </div>
+    </div>
+    <div class="tasks-container">
+        <h2>Done</h2>
+    
+        <div
+          cdkDropList
+          #done="cdkDropList"
+          [cdkDropListData]="tasksDone"
+          [cdkDropListConnectedTo]="[doing]"
+          class="example-list"
+          (cdkDropListDropped)="drop($event)">
+          <div class="example-box" *ngFor="let task of tasksDone" cdkDrag>{{task.task_name}}</div>
+        </div>
+    </div>
+</div>
