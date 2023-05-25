@@ -27,6 +27,15 @@ export class FunctionalityService {
       functionality_ownerId: 1,
       functionality_state: 'TODO'
     },
+    {
+      functionality_ID: 2,
+      functionality_name: 'functionality2',
+      functionality_description: 'desc2',
+      functionality_priority: 1,
+      functionality_projectId: 1,
+      functionality_ownerId: 1,
+      functionality_state: 'DOING'
+    },
   ]);
 
   private functionalities$: Observable<Functionality[]> = this._functionalities.asObservable();

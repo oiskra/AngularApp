@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormControl } from '@angular/forms';
+import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Functionality } from 'src/models/functionality.model';
 import { FunctionalityService } from 'src/services/functionality.service';
 
@@ -8,24 +11,36 @@ import { FunctionalityService } from 'src/services/functionality.service';
   templateUrl: './functionalities.component.html',
   styleUrls: ['./functionalities.component.scss']
 })
-export class FunctionalitiesComponent implements OnInit {
-  protected functionalities!: Functionality[]
+export class FunctionalitiesComponent implements OnInit, OnDestroy {
+  protected functionalities = new MatTableDataSource<Functionality>();
+  protected functionalitiesSub$!: Subscription;
   protected displayedColumns: string[] = [
     'Name',
-    'Description', 
-    'Owner',
-    'Priority',
     'State',
     'Edit', 
     'Delete'
-  ]
+  ];
 
-  constructor(private router: Router,protected functionalityService: FunctionalityService) {}
+  protected filterStateSelect: FormControl<string | null> = new FormControl();
+  protected filterStateSelectSub$!: Subscription;
+
+  constructor(private router: Router,
+    protected functionalityService: FunctionalityService) {}
+
 
   ngOnInit(): void {
     this.functionalityService.getAllFunctionalities().subscribe(data => {
-      this.functionalities = [...data]
+      this.functionalities.data = [...data]
     })
+
+    this.filterStateSelectSub$ = this.filterStateSelect.valueChanges.subscribe(filterVal => {
+      this.functionalities.filter = filterVal as string;   
+    })
+  }
+
+  ngOnDestroy(): void {
+    this.filterStateSelectSub$.unsubscribe();
+    this.functionalitiesSub$.unsubscribe();
   }
 
   onAddFunctionalityClick() {

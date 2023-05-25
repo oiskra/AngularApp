@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Functionality } from 'src/models/functionality.model';
 import { FunctionalityService } from 'src/services/functionality.service';
@@ -21,7 +22,7 @@ export class FunctionalitiesCreateComponent implements OnInit, OnDestroy {
   private subWorkingProject$!: Subscription;
   private workingProjectId!: number;
 
-  constructor(private formBuilder: FormBuilder, private functionalityService: FunctionalityService, private projectService: ProjectService) {}
+  constructor(private router: Router, private formBuilder: FormBuilder, private functionalityService: FunctionalityService, private projectService: ProjectService) {}
   
   ngOnInit() { 
     this.subStatus$ = this.functionalityForm.statusChanges.subscribe();
@@ -47,7 +48,8 @@ export class FunctionalitiesCreateComponent implements OnInit, OnDestroy {
       functionality_state: 'TODO'
     }
 
-    this.functionalityService.createFunctionality(newFunctionality);    
+    this.functionalityService.createFunctionality(newFunctionality); 
+    this.router.navigateByUrl('/functionalities')   
   }
 
 }
