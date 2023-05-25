@@ -63,8 +63,17 @@ export class FunctionalityService {
     this._functionalities.getValue().push(newFunctionality);
   }
 
+  updateFunctionality(id: number, functionality: Functionality) {
+    if(id !== functionality.functionality_ID) {
+      return;
+    }
+
+    const index: number = this._functionalities.getValue().findIndex(item => item.functionality_ID === id)
+    this._functionalities.getValue()[index] = functionality;
+  }
+
   deleteFunctionality(id: number) {
-    const index: number = this._functionalities.getValue().findIndex((item) => item.functionality_ID == id);
+    const index: number = this._functionalities.getValue().findIndex((item) => item.functionality_ID === id);
     if(index < 0) {
       return;
     }

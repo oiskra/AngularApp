@@ -52,12 +52,12 @@ export class ProjectService {
       return;
     }
 
-    const index: number = this._projects.getValue().findIndex((item) => item.project_ID == id);
+    const index: number = this._projects.getValue().findIndex((item) => item.project_ID === id);
     this._projects.getValue()[index] = project;
   }
 
   deleteProject(id: number): void {
-    const index: number = this._projects.getValue().findIndex((item) => item.project_ID == id);
+    const index: number = this._projects.getValue().findIndex((item) => item.project_ID === id);
     if(index < 0) {
       return;
     }

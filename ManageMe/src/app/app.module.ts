@@ -29,6 +29,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProjectEditComponent } from './pages/projects-page/project-edit/project-edit.component';
 import { FunctionalitiesCreateComponent } from './pages/functionalities-page/functionalities-create/functionalities-create.component';
 import { FunctionalitiesDetailsComponent } from './pages/functionalities-page/functionalities-details/functionalities-details.component';
+import { FunctionalitiesEditComponent } from './pages/functionalities-page/functionalities-edit/functionalities-edit.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { FunctionalitiesDetailsComponent } from './pages/functionalities-page/fu
     ProjectEditComponent,
     FunctionalitiesCreateComponent,
     FunctionalitiesDetailsComponent,
+    FunctionalitiesEditComponent,
   ],
   imports: [
     BrowserModule,

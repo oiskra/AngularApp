@@ -10,6 +10,7 @@ import { ProjectCreateComponent } from './pages/projects-page/project-create/pro
 import { ProjectEditComponent } from './pages/projects-page/project-edit/project-edit.component';
 import { FunctionalitiesCreateComponent } from './pages/functionalities-page/functionalities-create/functionalities-create.component';
 import { FunctionalitiesDetailsComponent } from './pages/functionalities-page/functionalities-details/functionalities-details.component';
+import { FunctionalitiesEditComponent } from './pages/functionalities-page/functionalities-edit/functionalities-edit.component';
 
 const routes: Routes = [
   {path: 'users', component: UsersComponent},
@@ -20,6 +21,7 @@ const routes: Routes = [
   {path: 'functionalities', component: FunctionalitiesComponent},
   {path: 'functionalities/create', component: FunctionalitiesCreateComponent},
   {path: 'functionalities/details/:id', component: FunctionalitiesDetailsComponent},
+  {path: 'functionalities/edit/:id', component: FunctionalitiesEditComponent},
   {path: 'tasks', component: TasksComponent}
 ];
 
