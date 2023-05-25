@@ -29,7 +29,7 @@ export class FunctionalitiesComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-    this.functionalityService.getAllFunctionalities().subscribe(data => {
+    this.functionalitiesSub$ = this.functionalityService.getAllFunctionalities().subscribe(data => {
       this.functionalities.data = [...data]
     })
 
