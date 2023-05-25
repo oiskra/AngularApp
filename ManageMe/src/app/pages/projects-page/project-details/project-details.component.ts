@@ -26,7 +26,7 @@ export class ProjectDetailsComponent {
   } = {functionalities: [], tasks: [], users: []};
   protected isDisabled!: boolean;
   
-  private routeSub?: Subscription;
+  private routeSub$?: Subscription;
 
   constructor(
     private route: ActivatedRoute, 
@@ -36,7 +36,7 @@ export class ProjectDetailsComponent {
     private userService: UserService) { }
   
   ngOnInit(): void {
-    this.routeSub = this.route.params.subscribe((params) => {
+    this.routeSub$ = this.route.params.subscribe((params) => {
       this.selectedId = Number(params['id']);
       this.selectedProject = this.projectService.getProject(this.selectedId);
     }); 
@@ -50,7 +50,7 @@ export class ProjectDetailsComponent {
 
   
   ngOnDestroy(): void {
-    this.routeSub?.unsubscribe();
+    this.routeSub$?.unsubscribe();
   }
   
   private getDetails() {
@@ -58,20 +58,23 @@ export class ProjectDetailsComponent {
     const allTasks = this.taskService.getAllTasks();
     const allUsers = this.userService.getAllUsers();
 
-    //this.details.functionalities = allFuncs.filter(item => item.functionality_projectId === this.selectedId);
     allFuncs.subscribe((data) => {
       this.details.functionalities = data.filter(item => item.functionality_projectId === this.selectedId);
     })
-
-    this.details.tasks = allTasks.filter(item => {
-      return this.details.functionalities.some(func => func.functionality_ID === item.task_functionalityId)
-    });
-
-    this.details.users = allUsers.filter((item) => {
-      const funcUsers = this.details.functionalities.some(func => func.functionality_ownerId === item.user_id);
-      const taskUsers = this.details.tasks.some(func => func.task_assignedEmployeeId === item.user_id);
-      return funcUsers || taskUsers;
-    });
+    
+    allTasks.subscribe((data) => {
+      this.details.tasks = data.filter(item => {
+        return this.details.functionalities.some(func => func.functionality_ID === item.task_functionalityId)
+      })
+    })
+    
+    allUsers.subscribe((data) => {
+      this.details.users = data.filter((item) => {
+        const funcUsers = this.details.functionalities.some(func => func.functionality_ownerId === item.user_id);
+        const taskUsers = this.details.tasks.some(func => func.task_assignedEmployeeId === item.user_id);
+        return funcUsers || taskUsers;
+      })
+    })
   }
 
   protected completionTime() {

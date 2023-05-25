@@ -28,6 +28,7 @@ import { ProjectCreateComponent } from './pages/projects-page/project-create/pro
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProjectEditComponent } from './pages/projects-page/project-edit/project-edit.component';
 import { FunctionalitiesCreateComponent } from './pages/functionalities-page/functionalities-create/functionalities-create.component';
+import { FunctionalitiesDetailsComponent } from './pages/functionalities-page/functionalities-details/functionalities-details.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { FunctionalitiesCreateComponent } from './pages/functionalities-page/fun
     ProjectCreateComponent,
     ProjectEditComponent,
     FunctionalitiesCreateComponent,
+    FunctionalitiesDetailsComponent,
   ],
   imports: [
     BrowserModule,

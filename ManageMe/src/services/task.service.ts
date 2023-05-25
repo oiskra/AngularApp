@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { State } from 'src/models/state.model';
 import { Task } from 'src/models/task.model';
 
@@ -7,7 +8,7 @@ import { Task } from 'src/models/task.model';
 })
 export class TaskService {
 
-  private _tasks: Task[] = [
+  private _tasks: BehaviorSubject<Task[]> = new BehaviorSubject<Task[]>([
     {
       task_ID: 0,
       task_name: "Implement login functionality",
@@ -34,12 +35,13 @@ export class TaskService {
       task_finishedAt: new Date("2023-05-22T15:30:00Z"),
       task_assignedEmployeeId: 0
     }
+  ]);
 
-  ]
+  private tasks$: Observable<Task[]> = this._tasks.asObservable();
 
   constructor() { }
 
-  getAllTasks(): Task[] {
-    return this._tasks;
+  getAllTasks(): Observable<Task[]> {
+    return this.tasks$;
   }
 }
