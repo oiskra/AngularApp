@@ -36,6 +36,15 @@ export class FunctionalityService {
       functionality_ownerId: 1,
       functionality_state: 'DOING'
     },
+    {
+      functionality_ID: 3,
+      functionality_name: 'Example Functionality',
+      functionality_description: 'This is an example functionality.',
+      functionality_priority: 2,
+      functionality_projectId: 1,
+      functionality_ownerId: 1,
+      functionality_state: 'DONE'
+    }
   ]);
 
   private functionalities$: Observable<Functionality[]> = this._functionalities.asObservable();
@@ -44,6 +53,10 @@ export class FunctionalityService {
 
   getAllFunctionalities(): Observable<Functionality[]> {
     return this.functionalities$;
+  }
+
+  getFunctionality(id: number) {
+    return this._functionalities.getValue().find(func => func.functionality_ID === id)
   }
 
   createFunctionality(newFunctionality: Functionality) {
