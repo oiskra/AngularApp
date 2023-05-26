@@ -13,6 +13,7 @@ import { FunctionalitiesDetailsComponent } from './pages/functionalities-page/fu
 import { FunctionalitiesEditComponent } from './pages/functionalities-page/functionalities-edit/functionalities-edit.component';
 
 const routes: Routes = [
+  {path: '', redirectTo: 'projects', pathMatch: 'full'},
   {path: 'users', component: UsersComponent},
   {path: 'projects', component: ProjectsComponent},
   {path: 'projects/details/:id', component: ProjectDetailsComponent},
