@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Functionality } from 'src/models/functionality.model';
-import { State } from 'src/models/state.model';
+import { TaskService } from './task.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +35,7 @@ export class FunctionalityService {
       functionality_priority: 1,
       functionality_projectId: 1,
       functionality_ownerId: 1,
-      functionality_state: 'DOING'
+      functionality_state: 'TODO'
     },
     {
       functionality_ID: 3,
@@ -43,13 +44,29 @@ export class FunctionalityService {
       functionality_priority: 2,
       functionality_projectId: 1,
       functionality_ownerId: 1,
-      functionality_state: 'DONE'
+      functionality_state: 'TODO'
     }
   ]);
 
   private functionalities$: Observable<Functionality[]> = this._functionalities.asObservable();
 
-  constructor() { }
+  constructor(taskService: TaskService) {
+    this._functionalities.getValue().forEach(func => {
+      taskService.getRelatedFunctionalityTasks(func.functionality_ID).subscribe(data => {
+        const clone = {...func}
+        if(data.every(task => task.task_state === 'TODO')) {
+            clone.functionality_state = 'TODO';
+            this.updateFunctionality(func.functionality_ID, clone);
+        } else if(data.some(task => task.task_state === 'DOING')) {
+            clone.functionality_state = 'DOING';
+            this.updateFunctionality(func.functionality_ID, clone);
+        } else if(data.every(task => task.task_state === 'DONE')){
+            clone.functionality_state = 'DONE';
+            this.updateFunctionality(func.functionality_ID, clone);
+        }     
+      })
+    })   
+  }
 
   getAllFunctionalities(): Observable<Functionality[]> {
     return this.functionalities$;

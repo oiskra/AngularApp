@@ -1,7 +1,9 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { State } from 'src/models/state.model';
 import { Task } from 'src/models/task.model';
+import { FunctionalityService } from 'src/services/functionality.service';
 import { TaskService } from 'src/services/task.service';
 
 @Component({
@@ -17,11 +19,15 @@ export class TasksComponent implements OnInit, OnDestroy {
 
   private taskSub$!: Subscription;
 
-  constructor(private taskService: TaskService) { }
+  constructor(private taskService: TaskService, private functionalityService: FunctionalityService) { }
 
   ngOnInit(): void {
     this.taskSub$ = this.taskService.getAllTasks().subscribe(data => {
       this.tasks = [...data];
+      this.tasksToDo = [];
+      this.tasksDoing = [];
+      this.tasksDone = [];
+
       this.tasks.forEach(task => {
         switch (task.task_state) {
           case 'TODO':
@@ -51,15 +57,11 @@ export class TasksComponent implements OnInit, OnDestroy {
     
   }
 
-  onEditTaskClick(id: number) {
-
-  }
-
   onDeleteTaskClick(id: number) {
 
   }
 
-  drop(event: CdkDragDrop<Task[]>) {
+  changeState(event: CdkDragDrop<Task[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -69,6 +71,26 @@ export class TasksComponent implements OnInit, OnDestroy {
         event.previousIndex,
         event.currentIndex,
       );
+
+      const updatedTask: Task = event.container.data[event.currentIndex];
+      const updatedState: State = event.container.id as State;
+
+      const updatedTaskClone: Task = {...updatedTask};
+      updatedTaskClone.task_state = updatedState;
+
+      switch(updatedState) {
+        case 'TODO':
+          updatedTaskClone.task_startedAt = undefined;
+          break;
+        case 'DOING':
+          updatedTaskClone.task_startedAt = new Date(Date.now());
+          break;
+        case 'DONE':
+          updatedTaskClone.task_finishedAt = new Date(Date.now());
+          break;
+      }
+
+      this.taskService.updateTask(updatedTask.task_ID, updatedTaskClone); 
     }
   }
 }

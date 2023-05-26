@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Functionality } from 'src/models/functionality.model';
 import { FunctionalityService } from 'src/services/functionality.service';
+import { TaskService } from 'src/services/task.service';
 
 @Component({
   selector: 'app-functionalities',
@@ -25,10 +26,12 @@ export class FunctionalitiesComponent implements OnInit, OnDestroy {
   protected filterStateSelectSub$!: Subscription;
 
   constructor(private router: Router,
-    protected functionalityService: FunctionalityService) {}
+    protected functionalityService: FunctionalityService,
+    private taskService: TaskService) {}
 
 
   ngOnInit(): void {
+    
     this.functionalitiesSub$ = this.functionalityService.getAllFunctionalities().subscribe(data => {
       this.functionalities.data = [...data]
     })

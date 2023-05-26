@@ -5,11 +5,12 @@
     
         <div
           cdkDropList
-          #toDo="cdkDropList"
+          id="TODO"
+          #TODO="cdkDropList"
           [cdkDropListData]="tasksToDo"
-          [cdkDropListConnectedTo]="[doing]"
+          [cdkDropListConnectedTo]="[DOING]"
           class="example-list"
-          (cdkDropListDropped)="drop($event)">
+          (cdkDropListDropped)="changeState($event)">
           <div class="example-box" *ngFor="let task of tasksToDo" cdkDrag>{{task.task_name}}</div>
         </div>
     </div>
@@ -18,11 +19,12 @@
     
         <div
           cdkDropList
-          #doing="cdkDropList"
+          id="DOING"
+          #DOING="cdkDropList"
           [cdkDropListData]="tasksDoing"
-          [cdkDropListConnectedTo]="[toDo, done]"
+          [cdkDropListConnectedTo]="[TODO, DONE]"
           class="example-list"
-          (cdkDropListDropped)="drop($event)">
+          (cdkDropListDropped)="changeState($event)">
           <div class="example-box" *ngFor="let task of tasksDoing" cdkDrag>{{task.task_name}}</div>
         </div>
     </div>
@@ -31,11 +33,12 @@
     
         <div
           cdkDropList
-          #done="cdkDropList"
+          id="DONE"
+          #DONE="cdkDropList"
           [cdkDropListData]="tasksDone"
-          [cdkDropListConnectedTo]="[doing]"
+          [cdkDropListConnectedTo]="[DOING]"
           class="example-list"
-          (cdkDropListDropped)="drop($event)">
+          (cdkDropListDropped)="changeState($event)">
           <div class="example-box" *ngFor="let task of tasksDone" cdkDrag>{{task.task_name}}</div>
         </div>
     </div>

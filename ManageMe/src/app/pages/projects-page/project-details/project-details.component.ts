@@ -89,13 +89,15 @@ export class ProjectDetailsComponent {
     }, 0)
   }
 
-  protected startedAt(): string{
-    if(this.details.tasks.length === 0) {
-      return 'Not started';
-    }
-    const created = this.details.tasks.map(item => item.task_addedAt.getTime());
-    const min = Math.min(...created);
+  protected startedAt(): string {
+    const created = this.details.tasks
+      .filter(item => !!item.task_startedAt)
+      .map(item => item.task_startedAt!.getTime());
     
+    if(created.length === 0) {
+      return 'NOT STARTED'
+    }
+    const min = Math.min(...created);
     return new Date(min).toLocaleString();
   }
 

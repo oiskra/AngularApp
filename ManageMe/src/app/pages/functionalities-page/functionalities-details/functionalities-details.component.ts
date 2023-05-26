@@ -42,10 +42,8 @@ export class FunctionalitiesDetailsComponent implements OnInit, OnDestroy {
       this.selectedFunctionality = this.functionalityService.getFunctionality(this.selectedId);
     }); 
 
-    this.relatedTasksSub$ = this.taskService.getAllTasks().subscribe(data => {
-      const filteredTasks = data.filter(item => this.selectedFunctionality!.functionality_ID === item.task_functionalityId);
-
-      this.details.tasks = [...filteredTasks];
+    this.relatedTasksSub$ = this.taskService.getRelatedFunctionalityTasks(this.selectedId).subscribe(data => {
+      this.details.tasks = [...data];
     });
 
     this.relatedUsersSub$ = this.userService.getAllUsers().subscribe((data) => {
@@ -68,12 +66,15 @@ export class FunctionalitiesDetailsComponent implements OnInit, OnDestroy {
   }
 
   startedAt() {
-    if(this.details.tasks.length === 0) {
-      return 'Not started';
-    }
-    const created = this.details.tasks.map(item => item.task_addedAt.getTime());
-    const min = Math.min(...created);
+    const created = this.details.tasks
+      .filter(item => !!item.task_startedAt) 
+      .map(item => item.task_startedAt!.getTime());
     
+    if(created.length === 0) {
+      return 'NOT STARTED'
+    }
+
+    const min = Math.min(...created);
     return new Date(min).toLocaleString();
   }
 
