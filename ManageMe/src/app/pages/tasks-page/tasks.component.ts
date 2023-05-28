@@ -23,9 +23,10 @@ export class TasksComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.taskSub$ = this.taskService.getAllTasks().subscribe(data => {
-      if(data.length === this.tasks.length) {return;}
-      
       this.tasks = [...data]
+      
+      if(data.length === [...this.tasksToDo, ...this.tasksDone, ...this.tasksDoing].length) {return;}
+      
       this.tasksToDo = [];
       this.tasksDoing = [];
       this.tasksDone = [];
@@ -65,7 +66,8 @@ export class TasksComponent implements OnInit, OnDestroy {
         event.currentIndex,
       );
 
-      const updatedTask: Task = event.container.data[event.currentIndex];
+      const updatedNonObservedTaskId: number = event.container.data[event.currentIndex].task_ID;
+      const updatedTask: Task = this.tasks.find(task => task.task_ID === updatedNonObservedTaskId)! 
       const updatedState: State = event.container.id as State;
 
       const updatedTaskClone: Task = {...updatedTask};
@@ -74,8 +76,13 @@ export class TasksComponent implements OnInit, OnDestroy {
       switch(updatedState) {
         case 'TODO':
           updatedTaskClone.task_startedAt = undefined;
+          updatedTaskClone.task_finishedAt = undefined;
           break;
         case 'DOING':
+          if(updatedTaskClone.task_startedAt) {
+            updatedTaskClone.task_finishedAt = undefined;
+            break;
+          }
           updatedTaskClone.task_startedAt = new Date(Date.now());
           break;
         case 'DONE':

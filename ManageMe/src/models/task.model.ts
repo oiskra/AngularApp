@@ -1,6 +1,4 @@
-import { Functionality } from "./functionality.model";
 import { State } from "./state.model";
-import { User } from "./user.model";
 
 export type Task = {
     task_ID: number;

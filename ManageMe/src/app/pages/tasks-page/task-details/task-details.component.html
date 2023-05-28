@@ -1,0 +1,14 @@
+<app-page-header title="Task Details" [displayButton]="false"></app-page-header>
+<div class="details-container">
+    <h2>{{selectedTask?.task_name}}</h2>
+    <h3>Description: {{selectedTask?.task_description}}</h3>
+    <h3>Priority: {{selectedTask?.task_priority}}</h3>
+    <h3>State: {{selectedTask?.task_state}}</h3>
+    <h3>Related functionality: {{ details.functionality }}</h3>
+    <h3>Added at: {{ selectedTask?.task_addedAt!.toLocaleString() }}</h3>
+    <h3>Started at: {{ startedAt() }}</h3>
+    <h3>Finished at: {{ finishedAt() }}</h3>
+    <h3>Estimated time of completion: {{ selectedTask?.task_durationInHours }}h</h3>
+    <h3>Assigned employee: {{ details.employee}}</h3>
+
+</div>

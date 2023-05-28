@@ -17,6 +17,8 @@ export class TaskService {
       task_functionalityId: 0,
       task_durationInHours: 4,
       task_state: 'TODO',
+      task_finishedAt: undefined,
+      task_startedAt: undefined,
       task_addedAt: new Date("2023-05-20T10:00:00Z"),
       task_assignedEmployeeId: 0
     },
@@ -28,6 +30,8 @@ export class TaskService {
       task_functionalityId: 0,
       task_durationInHours: 2,
       task_state: 'TODO',
+      task_finishedAt: undefined,
+      task_startedAt: undefined,
       task_addedAt: new Date("2023-05-02T10:00:00Z"),
       task_assignedEmployeeId: 0
     },
@@ -39,6 +43,8 @@ export class TaskService {
       task_functionalityId: 0,
       task_durationInHours: 2,
       task_state: 'TODO',
+      task_finishedAt: undefined,
+      task_startedAt: undefined,
       task_addedAt: new Date("2023-05-02T10:00:00Z"),
       task_assignedEmployeeId: 0
     },
@@ -50,6 +56,8 @@ export class TaskService {
       task_functionalityId: 0,
       task_durationInHours: 2,
       task_state: 'TODO',
+      task_finishedAt: undefined,
+      task_startedAt: undefined,
       task_addedAt: new Date("2023-05-02T10:00:00Z"),
       task_assignedEmployeeId: 0
     },
@@ -61,6 +69,10 @@ export class TaskService {
 
   getAllTasks(): Observable<Task[]> {
     return this.tasks$;
+  }
+
+  getTask(id: number) : Task | undefined {
+    return this._tasks.getValue().find(task => task.task_ID === id)
   }
 
   getRelatedFunctionalityTasks(functionalityId: number): Observable<Task[]> {
@@ -77,6 +89,7 @@ export class TaskService {
     if(id !== task.task_ID) {
       return;
     }
+    
     const index: number = this._tasks.getValue().findIndex(task => task.task_ID === id)
     this._tasks.getValue()[index] = task;
     this._tasks.next(this._tasks.getValue())
