@@ -14,7 +14,7 @@ export class TaskCreateComponent {
   protected taskForm = this.formBuilder.group({
     name: ['', Validators.required],
     description: ['', Validators.required],
-    priority: ['', Validators.required],
+    priority: [1, Validators.required],
     relatedFunctionality: ['', Validators.required],
     duration: ['', Validators.required]
   })

@@ -13,6 +13,7 @@ import { FunctionalitiesDetailsComponent } from './pages/functionalities-page/fu
 import { FunctionalitiesEditComponent } from './pages/functionalities-page/functionalities-edit/functionalities-edit.component';
 import { TaskCreateComponent } from './pages/tasks-page/task-create/task-create.component';
 import { TaskDetailsComponent } from './pages/tasks-page/task-details/task-details.component';
+import { TaskEditComponent } from './pages/tasks-page/task-edit/task-edit.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'projects', pathMatch: 'full'},
@@ -28,6 +29,7 @@ const routes: Routes = [
   {path: 'tasks', component: TasksComponent},
   {path: 'tasks/create', component: TaskCreateComponent},
   {path: 'tasks/details/:id', component: TaskDetailsComponent},
+  {path: 'tasks/edit/:id', component: TaskEditComponent},
 ];
 
 @NgModule({

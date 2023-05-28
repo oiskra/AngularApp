@@ -42,8 +42,8 @@ export class FunctionalitiesEditComponent {
       functionality_ID: this.selectedId,
       functionality_name: value.name!,
       functionality_description: value.description!,
+      functionality_priority: value.priority!,
       functionality_ownerId: this.selectedFunctionality?.functionality_ownerId!,
-      functionality_priority: this.selectedFunctionality?.functionality_priority!,
       functionality_projectId: this.selectedFunctionality?.functionality_projectId!,
       functionality_state: this.selectedFunctionality?.functionality_state!,
     })

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { ReplaySubject, Observable, Subject } from 'rxjs';
 import { User } from 'src/models/user.model';
 
 @Injectable({
@@ -7,7 +7,7 @@ import { User } from 'src/models/user.model';
 })
 export class GlobalStateService {
 
-  private _workingProject: Subject<number> = new Subject();
+  private _workingProject: ReplaySubject<number> = new ReplaySubject(1);
   public workingProject$: Observable<number> = this._workingProject.asObservable();
 
   private _currentUser: Subject<User> = new Subject();

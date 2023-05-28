@@ -53,7 +53,7 @@ export class TaskService {
       task_name: "Implement logout functionality",
       task_description: "1Develop the login feature for the application",
       task_priority: 3,
-      task_functionalityId: 0,
+      task_functionalityId: 1,
       task_durationInHours: 2,
       task_state: 'TODO',
       task_finishedAt: undefined,
