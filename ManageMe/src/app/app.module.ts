@@ -16,7 +16,8 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
-import {DragDropModule} from '@angular/cdk/drag-drop'
+import {DragDropModule} from '@angular/cdk/drag-drop';
+import {MatMenuModule} from '@angular/material/menu';
 
 import { ProjectsComponent } from './pages/projects-page/projects.component';
 import { FunctionalitiesComponent } from './pages/functionalities-page/functionalities.component';
@@ -32,6 +33,7 @@ import { FunctionalitiesCreateComponent } from './pages/functionalities-page/fun
 import { FunctionalitiesDetailsComponent } from './pages/functionalities-page/functionalities-details/functionalities-details.component';
 import { FunctionalitiesEditComponent } from './pages/functionalities-page/functionalities-edit/functionalities-edit.component';
 import { TaskCreateComponent } from './pages/tasks-page/task-create/task-create.component';
+import { TaskListItemComponent } from './common/task-list-item/task-list-item.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +51,7 @@ import { TaskCreateComponent } from './pages/tasks-page/task-create/task-create.
     FunctionalitiesDetailsComponent,
     FunctionalitiesEditComponent,
     TaskCreateComponent,
+    TaskListItemComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,7 +70,8 @@ import { TaskCreateComponent } from './pages/tasks-page/task-create/task-create.
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    DragDropModule
+    DragDropModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]

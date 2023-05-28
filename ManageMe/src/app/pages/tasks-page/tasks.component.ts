@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { State } from 'src/models/state.model';
 import { Task } from 'src/models/task.model';
-import { FunctionalityService } from 'src/services/functionality.service';
 import { TaskService } from 'src/services/task.service';
 
 @Component({
@@ -13,7 +12,7 @@ import { TaskService } from 'src/services/task.service';
   styleUrls: ['./tasks.component.scss']
 })
 export class TasksComponent implements OnInit, OnDestroy {
-  private tasks: Task[] = [];
+  protected tasks: Task[] = []
   protected tasksToDo: Task[] = [];
   protected tasksDoing: Task[] = [];
   protected tasksDone: Task[] = [];
@@ -24,12 +23,14 @@ export class TasksComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.taskSub$ = this.taskService.getAllTasks().subscribe(data => {
-      this.tasks = [...data];
+      if(data.length === this.tasks.length) {return;}
+      
+      this.tasks = [...data]
       this.tasksToDo = [];
       this.tasksDoing = [];
       this.tasksDone = [];
 
-      this.tasks.forEach(task => {
+      data.forEach(task => {
         switch (task.task_state) {
           case 'TODO':
             this.tasksToDo.push(task);
@@ -42,8 +43,7 @@ export class TasksComponent implements OnInit, OnDestroy {
             break;
         }
       })
-    })
-
+    });
   }
 
   ngOnDestroy(): void {
@@ -52,14 +52,6 @@ export class TasksComponent implements OnInit, OnDestroy {
 
   onAddTaskClick() {
     this.router.navigateByUrl('tasks/create');
-  }
-
-  onTaskClick(id: number) {
-    this.router.navigateByUrl('tasks/details/' + id);
-  }
-
-  onDeleteTaskClick(id: number) {
-    this.taskService.deleteTask(id);
   }
 
   changeState(event: CdkDragDrop<Task[]>) {

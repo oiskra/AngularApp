@@ -1,0 +1,14 @@
+.example-box {
+    padding: 20px 10px;
+    border-bottom: solid 1px #C2185B;
+    color: white;
+    font-family: 'Roboto';
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    cursor: move;
+    background: #424242;
+    font-size: 14px;
+}

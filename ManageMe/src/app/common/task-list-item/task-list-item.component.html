@@ -1,0 +1,17 @@
+<div class="example-box">
+    <span>{{task.task_name}}</span>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="onDetailsClick(task.task_ID)" >
+            Details
+        </button>
+        <button mat-menu-item (click)="onEditClick(task.task_ID)">
+            Edit
+        </button>
+        <button mat-menu-item (click)="onDeleteClick(task.task_ID)">
+            Delete
+        </button>
+      </mat-menu>
+</div>

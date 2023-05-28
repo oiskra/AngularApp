@@ -46,7 +46,6 @@ export class ProjectDetailsComponent {
     this.globalState.workingProject$.subscribe(data => {
       this.isDisabled = data === this.selectedId
     })
-
   }
 
   
