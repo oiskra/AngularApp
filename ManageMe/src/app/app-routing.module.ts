@@ -11,6 +11,7 @@ import { ProjectEditComponent } from './pages/projects-page/project-edit/project
 import { FunctionalitiesCreateComponent } from './pages/functionalities-page/functionalities-create/functionalities-create.component';
 import { FunctionalitiesDetailsComponent } from './pages/functionalities-page/functionalities-details/functionalities-details.component';
 import { FunctionalitiesEditComponent } from './pages/functionalities-page/functionalities-edit/functionalities-edit.component';
+import { TaskCreateComponent } from './pages/tasks-page/task-create/task-create.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'projects', pathMatch: 'full'},
@@ -23,7 +24,8 @@ const routes: Routes = [
   {path: 'functionalities/create', component: FunctionalitiesCreateComponent},
   {path: 'functionalities/details/:id', component: FunctionalitiesDetailsComponent},
   {path: 'functionalities/edit/:id', component: FunctionalitiesEditComponent},
-  {path: 'tasks', component: TasksComponent}
+  {path: 'tasks', component: TasksComponent},
+  {path: 'tasks/create', component: TaskCreateComponent}
 ];
 
 @NgModule({

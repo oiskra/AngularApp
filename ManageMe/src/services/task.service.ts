@@ -69,6 +69,10 @@ export class TaskService {
     ));
   }
 
+  createTask(task: Task) {
+    this._tasks.getValue().push(task);
+  }
+
   updateTask(id: number, task: Task) {
     if(id !== task.task_ID) {
       return;

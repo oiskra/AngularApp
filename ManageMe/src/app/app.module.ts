@@ -31,6 +31,7 @@ import { ProjectEditComponent } from './pages/projects-page/project-edit/project
 import { FunctionalitiesCreateComponent } from './pages/functionalities-page/functionalities-create/functionalities-create.component';
 import { FunctionalitiesDetailsComponent } from './pages/functionalities-page/functionalities-details/functionalities-details.component';
 import { FunctionalitiesEditComponent } from './pages/functionalities-page/functionalities-edit/functionalities-edit.component';
+import { TaskCreateComponent } from './pages/tasks-page/task-create/task-create.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { FunctionalitiesEditComponent } from './pages/functionalities-page/funct
     FunctionalitiesCreateComponent,
     FunctionalitiesDetailsComponent,
     FunctionalitiesEditComponent,
+    TaskCreateComponent,
   ],
   imports: [
     BrowserModule,

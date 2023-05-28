@@ -1,5 +1,6 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { State } from 'src/models/state.model';
 import { Task } from 'src/models/task.model';
@@ -19,7 +20,7 @@ export class TasksComponent implements OnInit, OnDestroy {
 
   private taskSub$!: Subscription;
 
-  constructor(private taskService: TaskService, private functionalityService: FunctionalityService) { }
+  constructor(private taskService: TaskService, private router: Router) { }
 
   ngOnInit(): void {
     this.taskSub$ = this.taskService.getAllTasks().subscribe(data => {
@@ -50,7 +51,7 @@ export class TasksComponent implements OnInit, OnDestroy {
   }
 
   onAddTaskClick() {
-
+    this.router.navigateByUrl('tasks/create');
   }
 
   onTaskClick(id: number) {
