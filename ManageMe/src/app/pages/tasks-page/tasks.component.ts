@@ -55,11 +55,11 @@ export class TasksComponent implements OnInit, OnDestroy {
   }
 
   onTaskClick(id: number) {
-    
+    this.router.navigateByUrl('tasks/details/' + id);
   }
 
   onDeleteTaskClick(id: number) {
-
+    this.taskService.deleteTask(id);
   }
 
   changeState(event: CdkDragDrop<Task[]>) {

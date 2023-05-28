@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Functionality } from 'src/models/functionality.model';
 import { FunctionalityService } from 'src/services/functionality.service';
+import { GlobalStateService } from 'src/services/global-state.service';
 import { ProjectService } from 'src/services/project.service';
 
 @Component({
@@ -22,11 +23,11 @@ export class FunctionalitiesCreateComponent implements OnInit, OnDestroy {
   private subWorkingProject$!: Subscription;
   private workingProjectId!: number;
 
-  constructor(private router: Router, private formBuilder: FormBuilder, private functionalityService: FunctionalityService, private projectService: ProjectService) {}
+  constructor(private router: Router, private formBuilder: FormBuilder, private functionalityService: FunctionalityService, private globalState: GlobalStateService) {}
   
   ngOnInit() { 
     this.subStatus$ = this.functionalityForm.statusChanges.subscribe();
-    this.subWorkingProject$ = this.projectService.getWorkingProject().subscribe(data => {
+    this.subWorkingProject$ = this.globalState.workingProject$.subscribe(data => {
       this.workingProjectId = data;
     });
   }

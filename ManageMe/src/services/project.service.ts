@@ -21,20 +21,8 @@ export class ProjectService {
   ]);
   
   private projects$: Observable<Project[]> = this._projects.asObservable();
-  
-  private _workingProject: BehaviorSubject<number> = new BehaviorSubject(this._projects.getValue()[0].project_ID);
-  private workingProject$: Observable<number> = this._workingProject.asObservable();
-
 
   constructor() { }
-
-  setWorkingProject(id: number) {
-    this._workingProject.next(id);
-  }
-
-  getWorkingProject(): Observable<number> {
-    return this.workingProject$;
-  }
   
   getAllProjects(): Observable<Project[]> {
     return this.projects$;

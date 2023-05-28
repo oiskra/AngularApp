@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
-import { Observable, Subscription, switchMap } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Functionality } from 'src/models/functionality.model';
 import { Project } from 'src/models/project.model';
-import { State } from 'src/models/state.model';
 import { Task } from 'src/models/task.model';
 import { User } from 'src/models/user.model';
 import { FunctionalityService } from 'src/services/functionality.service';
+import { GlobalStateService } from 'src/services/global-state.service';
 import { ProjectService } from 'src/services/project.service';
 import { TaskService } from 'src/services/task.service';
 import { UserService } from 'src/services/user.service';
@@ -33,7 +33,8 @@ export class ProjectDetailsComponent {
     protected projectService: ProjectService, 
     private functionalityService: FunctionalityService,
     private taskService: TaskService,
-    private userService: UserService) { }
+    private userService: UserService,
+    private globalState: GlobalStateService) { }
   
   ngOnInit(): void {
     this.routeSub$ = this.route.params.subscribe((params) => {
@@ -42,7 +43,7 @@ export class ProjectDetailsComponent {
     }); 
     
     this.getDetails();  
-    this.projectService.getWorkingProject().subscribe(data => {
+    this.globalState.workingProject$.subscribe(data => {
       this.isDisabled = data === this.selectedId
     })
 
@@ -102,7 +103,7 @@ export class ProjectDetailsComponent {
   }
 
   protected setAsWorkingProject() {
-    this.projectService.setWorkingProject(this.selectedId);
+    this.globalState.setWorkingProject(this.selectedId);
     this.isDisabled = true;
   }
 }

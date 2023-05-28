@@ -81,4 +81,13 @@ export class TaskService {
     this._tasks.getValue()[index] = task;
     this._tasks.next(this._tasks.getValue())
   }
+
+  deleteTask(id: number) {
+    const index: number = this._tasks.getValue().findIndex((item) => item.task_ID === id);
+    if(index < 0) {
+      return;
+    }
+    this._tasks.getValue().splice(index, 1);
+    this._tasks.next(this._tasks.getValue())
+  }
 }
