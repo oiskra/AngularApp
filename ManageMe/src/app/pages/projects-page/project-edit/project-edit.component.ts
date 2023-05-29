@@ -44,7 +44,7 @@ export class ProjectEditComponent implements OnInit {
       project_description: value.description!
     })
 
-    const snackbar = this.snackBar.open('Project edited successfuly')
+    const snackbar = this.snackBar.open('Project edited successfully')
 
     setTimeout(() => snackbar.dismiss(), 2000)
   }

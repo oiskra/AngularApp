@@ -37,6 +37,8 @@ import { TaskCreateComponent } from './pages/tasks-page/task-create/task-create.
 import { TaskListItemComponent } from './common/task-list-item/task-list-item.component';
 import { TaskDetailsComponent } from './pages/tasks-page/task-details/task-details.component';
 import { TaskEditComponent } from './pages/tasks-page/task-edit/task-edit.component';
+import { UserDetailsComponent } from './pages/users-page/user-details/user-details.component';
+import { UserEditComponent } from './pages/users-page/user-edit/user-edit.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +59,8 @@ import { TaskEditComponent } from './pages/tasks-page/task-edit/task-edit.compon
     TaskListItemComponent,
     TaskDetailsComponent,
     TaskEditComponent,
+    UserDetailsComponent,
+    UserEditComponent,
   ],
   imports: [
     BrowserModule,

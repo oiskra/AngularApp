@@ -39,6 +39,15 @@ export class UserService {
     return this._users.getValue().find(user => user.user_id === id)
   }
 
+  updateUser(id: number, user: User) {
+    if(id !== user.user_id) {
+      return;
+    }
+
+    const index: number = this._users.getValue().findIndex(item => item.user_id === id)
+    this._users.getValue()[index] = user;
+  }
+
   deleteUser(id: number) {
     const index: number = this._users.getValue().findIndex((item) => item.user_id === id);
     if(index < 0) {

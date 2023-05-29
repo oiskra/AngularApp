@@ -1,0 +1,33 @@
+<app-page-header title="Edit Project" [displayButton]="false"></app-page-header>
+<div class="form-container">
+    <form [formGroup]="editForm" class="form">
+        <mat-form-field class="example-full-width">
+            <mat-label>Name</mat-label>
+            <input type="text" matInput formControlName="name" required/>
+            <mat-error *ngIf="editForm.get('name')?.errors?.['required']">
+                Required!
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>Surname</mat-label>
+            <input type="text" matInput formControlName="surname" required/>
+            <mat-error *ngIf="editForm.get('surname')?.errors?.['required']">
+                Required!
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>Role</mat-label>
+            <mat-select formControlName="role" required>
+                <mat-option value="developer">Developer</mat-option>
+                <mat-option value="devops">DevOps</mat-option>
+            </mat-select>
+            <mat-error *ngIf="editForm.get('role')?.errors?.['required']">
+                Required!
+            </mat-error>
+        </mat-form-field>
+    </form>
+    <button [disabled]="editForm.status === 'INVALID'" 
+        mat-raised-button 
+        color="primary" 
+        (click)="onSubmit()">Submit</button>
+</div>

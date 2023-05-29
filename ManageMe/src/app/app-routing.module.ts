@@ -14,10 +14,14 @@ import { FunctionalitiesEditComponent } from './pages/functionalities-page/funct
 import { TaskCreateComponent } from './pages/tasks-page/task-create/task-create.component';
 import { TaskDetailsComponent } from './pages/tasks-page/task-details/task-details.component';
 import { TaskEditComponent } from './pages/tasks-page/task-edit/task-edit.component';
+import { UserEditComponent } from './pages/users-page/user-edit/user-edit.component';
+import { UserDetailsComponent } from './pages/users-page/user-details/user-details.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'projects', pathMatch: 'full'},
   {path: 'users', component: UsersComponent},
+  {path: 'users/edit/:id', component: UserEditComponent},
+  {path: 'users/details/:id', component: UserDetailsComponent},
   {path: 'projects', component: ProjectsComponent},
   {path: 'projects/details/:id', component: ProjectDetailsComponent},
   {path: 'projects/create', component: ProjectCreateComponent},
