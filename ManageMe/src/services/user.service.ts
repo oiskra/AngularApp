@@ -39,6 +39,10 @@ export class UserService {
     return this._users.getValue().find(user => user.user_id === id)
   }
 
+  createUser(user: User) {
+    this._users.getValue().push(user);
+  }
+
   updateUser(id: number, user: User) {
     if(id !== user.user_id) {
       return;

@@ -16,9 +16,11 @@ import { TaskDetailsComponent } from './pages/tasks-page/task-details/task-detai
 import { TaskEditComponent } from './pages/tasks-page/task-edit/task-edit.component';
 import { UserEditComponent } from './pages/users-page/user-edit/user-edit.component';
 import { UserDetailsComponent } from './pages/users-page/user-details/user-details.component';
+import { LoginComponent } from './pages/login/login.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'projects', pathMatch: 'full'},
+  {path: 'auth/login', component: LoginComponent, outlet: 'auth'},
   {path: 'users', component: UsersComponent},
   {path: 'users/edit/:id', component: UserEditComponent},
   {path: 'users/details/:id', component: UserDetailsComponent},

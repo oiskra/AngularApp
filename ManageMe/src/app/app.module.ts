@@ -19,6 +19,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatTabsModule} from '@angular/material/tabs';
 
 import { ProjectsComponent } from './pages/projects-page/projects.component';
 import { FunctionalitiesComponent } from './pages/functionalities-page/functionalities.component';
@@ -39,6 +40,7 @@ import { TaskDetailsComponent } from './pages/tasks-page/task-details/task-detai
 import { TaskEditComponent } from './pages/tasks-page/task-edit/task-edit.component';
 import { UserDetailsComponent } from './pages/users-page/user-details/user-details.component';
 import { UserEditComponent } from './pages/users-page/user-edit/user-edit.component';
+import { LoginComponent } from './pages/login/login.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +63,7 @@ import { UserEditComponent } from './pages/users-page/user-edit/user-edit.compon
     TaskEditComponent,
     UserDetailsComponent,
     UserEditComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -81,7 +84,8 @@ import { UserEditComponent } from './pages/users-page/user-edit/user-edit.compon
     MatSelectModule,
     DragDropModule,
     MatMenuModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTabsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

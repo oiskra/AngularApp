@@ -9,4 +9,5 @@ import { UserService } from 'src/services/user.service';
 })
 export class AppComponent {
   title = 'ManageMe';
+  userLoggedIn: boolean = false;  
 }
