@@ -1,0 +1,14 @@
+<app-page-header title="User Details" [displayButton]="false"></app-page-header>
+<div class="details-container">
+    <h3>Name: {{selectedUser?.user_name}}</h3>
+    <h3>Surname: {{selectedUser?.user_surname}}</h3>
+    <h3>Role: {{selectedUser?.user_role}}</h3>
+    <h3>Assigned tasks:</h3>
+    <mat-list cols="5" rowHeight="10px">
+        <mat-list-item
+            *ngFor="let task of relatedTasks"
+        >
+            {{task.task_name}} [ {{task.task_state}} ]
+        </mat-list-item>
+    </mat-list>
+</div>
