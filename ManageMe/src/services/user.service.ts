@@ -38,4 +38,13 @@ export class UserService {
   getUser(id: number) {
     return this._users.getValue().find(user => user.user_id === id)
   }
+
+  deleteUser(id: number) {
+    const index: number = this._users.getValue().findIndex((item) => item.user_id === id);
+    if(index < 0) {
+      return;
+    }
+    this._users.getValue().splice(index, 1);
+    this._users.next(this._users.getValue())
+  }
 }
