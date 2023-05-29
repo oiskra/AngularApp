@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { Project } from 'src/models/project.model';
 import { ProjectService } from 'src/services/project.service';
@@ -17,7 +18,10 @@ export class ProjectEditComponent implements OnInit {
     description: ['', Validators.required]
   });
   
-  constructor(private formBuilder: FormBuilder, private activeRoute: ActivatedRoute, private projectService: ProjectService) {}
+  constructor(private formBuilder: FormBuilder, 
+    private activeRoute: ActivatedRoute, 
+    private projectService: ProjectService,
+    private snackBar: MatSnackBar) {}
   
   ngOnInit(): void {
     this.activeRoute.params.subscribe(param => {
@@ -39,5 +43,9 @@ export class ProjectEditComponent implements OnInit {
       project_name: value.name!,
       project_description: value.description!
     })
+
+    const snackbar = this.snackBar.open('Project edited successfuly')
+
+    setTimeout(() => snackbar.dismiss(), 2000)
   }
 }

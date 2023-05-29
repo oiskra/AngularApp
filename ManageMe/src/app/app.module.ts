@@ -18,6 +18,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 import { ProjectsComponent } from './pages/projects-page/projects.component';
 import { FunctionalitiesComponent } from './pages/functionalities-page/functionalities.component';
@@ -75,7 +76,8 @@ import { TaskEditComponent } from './pages/tasks-page/task-edit/task-edit.compon
     MatInputModule,
     MatSelectModule,
     DragDropModule,
-    MatMenuModule
+    MatMenuModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
 import { Project } from 'src/models/project.model';
 import { ProjectService } from 'src/services/project.service';
@@ -17,7 +18,9 @@ export class ProjectCreateComponent implements OnInit, OnDestroy {
   
   protected subStatus$!: Subscription;
 
-  constructor(private formBuilder: FormBuilder, private projectService: ProjectService) {}
+  constructor(private formBuilder: FormBuilder, 
+    private projectService: ProjectService,
+    private snackBar: MatSnackBar) {}
 
   ngOnInit() { 
     this.subStatus$ = this.projectForm.statusChanges.subscribe();
@@ -36,6 +39,9 @@ export class ProjectCreateComponent implements OnInit, OnDestroy {
         project_description: value.description!
     }
 
-    this.projectService.createProject(newProject);    
+    this.projectService.createProject(newProject); 
+    const snackbar = this.snackBar.open('Project created successfuly')
+
+    setTimeout(() => snackbar.dismiss(), 2000)   
   }
 }

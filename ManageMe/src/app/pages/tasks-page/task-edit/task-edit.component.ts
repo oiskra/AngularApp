@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription, map } from 'rxjs';
 import { Functionality } from 'src/models/functionality.model';
@@ -38,7 +39,8 @@ export class TaskEditComponent implements OnInit, OnDestroy{
     private taskService: TaskService,
     private functionalityService: FunctionalityService,
     private userService: UserService,
-    private globalState: GlobalStateService) {}
+    private globalState: GlobalStateService,
+    private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.activeRoute.params.subscribe(param => {
@@ -88,5 +90,9 @@ export class TaskEditComponent implements OnInit, OnDestroy{
       task_finishedAt: this.selectedTask?.task_finishedAt!,
       task_assignedEmployeeId: value.assignedUser!
     })
+
+    const snackbar = this.snackBar.open('Task edited successfuly')
+
+    setTimeout(() => snackbar.dismiss(), 2000)
   }
 }

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { Functionality } from 'src/models/functionality.model';
 import { FunctionalityService } from 'src/services/functionality.service';
@@ -20,7 +21,8 @@ export class FunctionalitiesEditComponent {
   
   constructor(private formBuilder: FormBuilder, 
     private activeRoute: ActivatedRoute, 
-    private functionalityService: FunctionalityService) {}
+    private functionalityService: FunctionalityService,
+    private snackBar: MatSnackBar) {}
   
   ngOnInit(): void {
     this.activeRoute.params.subscribe(param => {
@@ -47,5 +49,9 @@ export class FunctionalitiesEditComponent {
       functionality_projectId: this.selectedFunctionality?.functionality_projectId!,
       functionality_state: this.selectedFunctionality?.functionality_state!,
     })
+
+    const snackbar = this.snackBar.open('Functionality edited successfuly')
+
+    setTimeout(() => snackbar.dismiss(), 2000)
   }
 }

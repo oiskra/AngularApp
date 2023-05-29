@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Task } from 'src/models/task.model';
 import { TaskService } from 'src/services/task.service';
@@ -22,7 +23,8 @@ export class TaskCreateComponent {
   constructor(
     private taskService: TaskService,
     private formBuilder: FormBuilder, 
-    private router: Router) {}
+    private router: Router,
+    private snackBar: MatSnackBar) {}
 
 
   onSubmit() {
@@ -44,6 +46,9 @@ export class TaskCreateComponent {
 
     this.taskService.createTask(newTask); 
     this.router.navigateByUrl('/tasks')   
+    const snackbar = this.snackBar.open('Task created successfuly')
+
+    setTimeout(() => snackbar.dismiss(), 2000)
   }
 
 }

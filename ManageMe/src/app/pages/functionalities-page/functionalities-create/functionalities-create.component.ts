@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Functionality } from 'src/models/functionality.model';
@@ -23,7 +24,11 @@ export class FunctionalitiesCreateComponent implements OnInit, OnDestroy {
   private subWorkingProject$!: Subscription;
   private workingProjectId!: number;
 
-  constructor(private router: Router, private formBuilder: FormBuilder, private functionalityService: FunctionalityService, private globalState: GlobalStateService) {}
+  constructor(private router: Router, 
+    private formBuilder: FormBuilder, 
+    private functionalityService: FunctionalityService, 
+    private globalState: GlobalStateService,
+    private snackBar: MatSnackBar) {}
   
   ngOnInit() { 
     this.subStatus$ = this.functionalityForm.statusChanges.subscribe();
@@ -50,6 +55,9 @@ export class FunctionalitiesCreateComponent implements OnInit, OnDestroy {
     }
 
     this.functionalityService.createFunctionality(newFunctionality); 
+    const snackbar = this.snackBar.open('Functionality created successfuly')
+
+    setTimeout(() => snackbar.dismiss(), 2000)
     this.router.navigateByUrl('/functionalities')   
   }
 
