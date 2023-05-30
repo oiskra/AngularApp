@@ -23,6 +23,14 @@ export class UserService {
       user_name: "Jane",
       user_surname: "Doe",
       user_role: Role.DEVOPS,
+    },
+    {
+      user_id: 3,
+      user_login: "admin",
+      user_password: "admin",
+      user_name: "Ad",
+      user_surname: "Min",
+      user_role: Role.ADMIN,
     }
     
   ]);

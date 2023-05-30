@@ -43,6 +43,7 @@ export class TaskEditComponent implements OnInit, OnDestroy{
     private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
+
     this.activeRoute.params.subscribe(param => {
       this.selectedId = Number(param['id']);
       this.selectedTask = this.taskService.getTask(this.selectedId);

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { AuthService } from 'src/services/auth.service';
 import { UserService } from 'src/services/user.service';
 
 @Component({
@@ -8,6 +10,5 @@ import { UserService } from 'src/services/user.service';
   providers: [UserService]
 })
 export class AppComponent {
-  title = 'ManageMe';
-  userLoggedIn: boolean = false;  
+  title = 'ManageMe'; 
 }
