@@ -8,6 +8,7 @@
                     <a mat-list-item routerLink="projects">Projects</a>
                     <a mat-list-item routerLink="functionalities">Functionalities</a>
                     <a mat-list-item routerLink="tasks">Tasks</a>
+                    <a *ngIf="currentUser?.user_role === 'admin'" mat-list-item routerLink="users">Users</a>
                 </mat-nav-list>
             </div>
             <mat-card>

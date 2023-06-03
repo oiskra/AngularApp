@@ -17,25 +17,27 @@ import { TaskEditComponent } from './pages/tasks-page/task-edit/task-edit.compon
 import { UserEditComponent } from './pages/users-page/user-edit/user-edit.component';
 import { UserDetailsComponent } from './pages/users-page/user-details/user-details.component';
 import { LoginComponent } from './pages/login/login.component';
+import { AuthGuard } from 'src/guards/auth.guard';
+import { AdminGuard } from 'src/guards/admin.guard';
 
 const routes: Routes = [
   {path: '', redirectTo: 'projects', pathMatch: 'full'},
   {path: 'auth/login', component: LoginComponent, outlet: 'auth'},
-  {path: 'users', component: UsersComponent},
-  {path: 'users/edit/:id', component: UserEditComponent},
-  {path: 'users/details/:id', component: UserDetailsComponent},
-  {path: 'projects', component: ProjectsComponent},
-  {path: 'projects/details/:id', component: ProjectDetailsComponent},
-  {path: 'projects/create', component: ProjectCreateComponent},
-  {path: 'projects/edit/:id', component: ProjectEditComponent},
-  {path: 'functionalities', component: FunctionalitiesComponent},
-  {path: 'functionalities/create', component: FunctionalitiesCreateComponent},
-  {path: 'functionalities/details/:id', component: FunctionalitiesDetailsComponent},
-  {path: 'functionalities/edit/:id', component: FunctionalitiesEditComponent},
-  {path: 'tasks', component: TasksComponent},
-  {path: 'tasks/create', component: TaskCreateComponent},
-  {path: 'tasks/details/:id', component: TaskDetailsComponent},
-  {path: 'tasks/edit/:id', component: TaskEditComponent},
+  {path: 'users', component: UsersComponent, canActivate: [AuthGuard, AdminGuard]},
+  {path: 'users/edit/:id', component: UserEditComponent, canActivate: [AuthGuard, AdminGuard]},
+  {path: 'users/details/:id', component: UserDetailsComponent, canActivate: [AuthGuard, AdminGuard]},
+  {path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard]},
+  {path: 'projects/details/:id', component: ProjectDetailsComponent, canActivate: [AuthGuard]},
+  {path: 'projects/create', component: ProjectCreateComponent, canActivate: [AuthGuard]},
+  {path: 'projects/edit/:id', component: ProjectEditComponent, canActivate: [AuthGuard]},
+  {path: 'functionalities', component: FunctionalitiesComponent, canActivate: [AuthGuard]},
+  {path: 'functionalities/create', component: FunctionalitiesCreateComponent, canActivate: [AuthGuard]},
+  {path: 'functionalities/details/:id', component: FunctionalitiesDetailsComponent, canActivate: [AuthGuard]},
+  {path: 'functionalities/edit/:id', component: FunctionalitiesEditComponent, canActivate: [AuthGuard]},
+  {path: 'tasks', component: TasksComponent, canActivate: [AuthGuard]},
+  {path: 'tasks/create', component: TaskCreateComponent, canActivate: [AuthGuard]},
+  {path: 'tasks/details/:id', component: TaskDetailsComponent, canActivate: [AuthGuard]},
+  {path: 'tasks/edit/:id', component: TaskEditComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({

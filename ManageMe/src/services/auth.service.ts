@@ -13,8 +13,15 @@ export class AuthService {
   private _loggedUser: BehaviorSubject<User | undefined> = new BehaviorSubject<User | undefined>(undefined);
   loggedUser$: Observable<User | undefined> = this._loggedUser.asObservable();
 
-  
-  constructor(private userService: UserService) { }
+
+  constructor(private userService: UserService) {
+    this._isUserLoggedIn.subscribe({
+      next: (v) => console.log(v)
+    })
+    this._loggedUser.subscribe({
+      next: (v) => console.log(v)
+    })
+  }
 
   async register(
     login: string, 

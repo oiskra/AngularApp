@@ -1,0 +1,25 @@
+import { Injectable } from '@angular/core';
+import { CanActivate, Router } from '@angular/router';
+import { Observable, map } from 'rxjs';
+import { Role } from 'src/models/user.model';
+import { AuthService } from 'src/services/auth.service';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AdminGuard implements CanActivate {
+  constructor(private auth: AuthService, private router: Router) {}
+
+  canActivate(): Observable<boolean> {
+    return this.auth.loggedUser$.pipe(
+      map((loggedUser) => {
+        if(!loggedUser) {
+          // this.router.navigateByUrl('/(auth:auth/login)')
+          return false;
+        }
+
+        return loggedUser.user_role === Role.ADMIN;
+      }));
+  }
+  
+}

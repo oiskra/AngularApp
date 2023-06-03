@@ -20,6 +20,7 @@
             <mat-select formControlName="role" required>
                 <mat-option value="developer">Developer</mat-option>
                 <mat-option value="devops">DevOps</mat-option>
+                <mat-option value="admin">Admin</mat-option>
             </mat-select>
             <mat-error *ngIf="editForm.get('role')?.errors?.['required']">
                 Required!
