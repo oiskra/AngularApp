@@ -1,6 +1,6 @@
 <app-page-header title="Projects" buttonTitle="Create Project" (headerButtonClick)="onAddProjectClick()" [displayButton]="true"></app-page-header>
 <div class="table-wrapper">
-    <table mat-table [dataSource]="projects" class="test mat-elevation-z8">
+    <table mat-table [dataSource]="projects" class="mat-elevation-z8">
         <ng-container matColumnDef="Name">
             <th mat-header-cell *matHeaderCellDef> Name </th>
             <td mat-cell *matCellDef="let project" (click)="onProjectClick(project.project_ID)" class="pointer"> {{project.project_name}} </td>
@@ -20,7 +20,7 @@
         <ng-container matColumnDef="Delete">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let project" >
-                <button mat-icon-button color="warn" (click)="projectService.deleteProject(project.project_ID)">
+                <button mat-icon-button color="warn" (click)="onDeleteProjectClick(project.project_ID)">
                     <mat-icon class="pointer">delete</mat-icon>
                 </button>
             </td>

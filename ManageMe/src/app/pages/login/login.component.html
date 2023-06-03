@@ -6,7 +6,7 @@
         <form class="form" [formGroup]="loginForm">
           <mat-form-field class="form-field">
             <mat-label>Login</mat-label>
-            <input type="text" matInput formControlName="login" required />
+            <input type="text" matInput formControlName="login" required autofocus/>
             <mat-error *ngIf="loginForm.get('login')?.errors?.['required']">
               Required!
             </mat-error>

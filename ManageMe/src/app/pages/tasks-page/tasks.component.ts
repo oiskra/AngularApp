@@ -12,14 +12,15 @@ import { TaskService } from 'src/services/task.service';
   styleUrls: ['./tasks.component.scss']
 })
 export class TasksComponent implements OnInit, OnDestroy {
-  protected tasks: Task[] = []
+  protected tasks: Task[] = [];
   protected tasksToDo: Task[] = [];
   protected tasksDoing: Task[] = [];
   protected tasksDone: Task[] = [];
 
   private taskSub$!: Subscription;
 
-  constructor(private taskService: TaskService, private router: Router) { }
+  constructor(private taskService: TaskService, 
+    private router: Router) { }
 
   ngOnInit(): void {
     this.taskSub$ = this.taskService.getAllTasks().subscribe(data => {
@@ -44,7 +45,7 @@ export class TasksComponent implements OnInit, OnDestroy {
             break;
         }
       })
-    });
+    });  
   }
 
   ngOnDestroy(): void {

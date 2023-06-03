@@ -4,6 +4,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Functionality } from 'src/models/functionality.model';
+import { Role, User } from 'src/models/user.model';
+import { AuthService } from 'src/services/auth.service';
 import { FunctionalityService } from 'src/services/functionality.service';
 import { TaskService } from 'src/services/task.service';
 
@@ -15,19 +17,16 @@ import { TaskService } from 'src/services/task.service';
 export class FunctionalitiesComponent implements OnInit, OnDestroy {
   protected functionalities = new MatTableDataSource<Functionality>();
   protected functionalitiesSub$!: Subscription;
-  protected displayedColumns: string[] = [
-    'Name',
-    'State',
-    'Edit', 
-    'Delete'
-  ];
+  protected currentUser?: User;
+  protected displayedColumns!: string[];
 
   protected filterStateSelect: FormControl<string | null> = new FormControl();
   protected filterStateSelectSub$!: Subscription;
 
   constructor(private router: Router,
     protected functionalityService: FunctionalityService,
-    private taskService: TaskService) {}
+    private taskService: TaskService,
+    private auth: AuthService) {}
 
 
   ngOnInit(): void {
@@ -39,6 +38,14 @@ export class FunctionalitiesComponent implements OnInit, OnDestroy {
     this.filterStateSelectSub$ = this.filterStateSelect.valueChanges.subscribe(filterVal => {
       this.functionalities.filter = filterVal as string;   
     })
+
+    this.auth.loggedUser$.subscribe(user => {
+      this.currentUser = {...user!};
+    })
+    
+    this.displayedColumns = this.currentUser?.user_role === Role.ADMIN || this.currentUser?.user_role === Role.DEVOPS ? 
+      ['Name', 'State', 'Edit', 'Delete'] :
+      ['Name', 'State'];
   }
 
   ngOnDestroy(): void {

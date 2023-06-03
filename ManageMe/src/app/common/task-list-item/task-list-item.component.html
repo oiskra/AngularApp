@@ -7,10 +7,18 @@
         <button mat-menu-item (click)="onDetailsClick(task.task_ID)" >
             Details
         </button>
-        <button mat-menu-item (click)="onEditClick(task.task_ID)">
+        <button 
+            *ngIf="loggedUserTask"
+            mat-menu-item 
+            (click)="onEditClick(task.task_ID)"
+        >
             Edit
         </button>
-        <button mat-menu-item (click)="onDeleteClick(task.task_ID)">
+        <button 
+            *ngIf="loggedUserTask"
+            mat-menu-item 
+            (click)="onDeleteClick(task.task_ID)"
+        >
             Delete
         </button>
       </mat-menu>

@@ -24,9 +24,9 @@ import { DevopsGuard } from 'src/guards/devops.guard';
 const routes: Routes = [
   {path: '', redirectTo: 'projects', pathMatch: 'full'},
   {path: 'auth/login', component: LoginComponent, outlet: 'auth'},
-  {path: 'users', component: UsersComponent, canActivate: [AuthGuard, AdminGuard]},
-  {path: 'users/edit/:id', component: UserEditComponent, canActivate: [AuthGuard, AdminGuard]},
-  {path: 'users/details/:id', component: UserDetailsComponent, canActivate: [AuthGuard, AdminGuard]},
+  {path: 'users', component: UsersComponent, canActivate: [AuthGuard]},
+  {path: 'users/edit/:id', component: UserEditComponent, canActivate: [AuthGuard]},
+  {path: 'users/details/:id', component: UserDetailsComponent, canActivate: [AuthGuard]},
   {path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard]},
   {path: 'projects/details/:id', component: ProjectDetailsComponent, canActivate: [AuthGuard]},
   {path: 'projects/create', component: ProjectCreateComponent, canActivate: [AuthGuard, DevopsGuard]},
@@ -38,7 +38,7 @@ const routes: Routes = [
   {path: 'tasks', component: TasksComponent, canActivate: [AuthGuard]},
   {path: 'tasks/create', component: TaskCreateComponent, canActivate: [AuthGuard]},
   {path: 'tasks/details/:id', component: TaskDetailsComponent, canActivate: [AuthGuard]},
-  {path: 'tasks/edit/:id', component: TaskEditComponent, canActivate: [AuthGuard, DevopsGuard]},
+  {path: 'tasks/edit/:id', component: TaskEditComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({

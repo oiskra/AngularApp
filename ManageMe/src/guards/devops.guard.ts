@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { CanActivate, Router } from '@angular/router';
 import { Observable, map } from 'rxjs';
 import { Role } from 'src/models/user.model';
 import { AuthService } from 'src/services/auth.service';
@@ -17,7 +17,7 @@ export class DevopsGuard implements CanActivate {
             return false;
           }
   
-          return loggedUser.user_role === Role.DEVOPS;
+          return loggedUser.user_role === Role.DEVOPS || loggedUser.user_role === Role.ADMIN;
         }));
   }
   

@@ -1,6 +1,6 @@
 <app-page-header title="Users" [displayButton]="false"></app-page-header>
 <div class="table-wrapper">
-    <table mat-table [dataSource]="users" class="test mat-elevation-z8">
+    <table mat-table [dataSource]="users" class="mat-elevation-z8">
         <ng-container matColumnDef="Name">
             <th mat-header-cell *matHeaderCellDef> Name </th>
             <td mat-cell *matCellDef="let user" (click)="onUserClick(user.user_id)" class="pointer"> {{user.user_name}} </td>

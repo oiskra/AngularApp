@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { User } from 'src/models/user.model';
 import { UserService } from 'src/services/user.service';
 
@@ -8,17 +9,22 @@ import { UserService } from 'src/services/user.service';
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss']
 })
-export class UsersComponent {
+export class UsersComponent implements OnInit, OnDestroy {
   protected displayedColumns: string[] = ['Name', 'Surname', 'Role', 'Edit', 'Delete'];
-  protected users!: User[]
+  protected users!: User[];
+  private usersSub$!: Subscription
 
   constructor(private router: Router, 
-    protected userService: UserService) {}
+    private userService: UserService) {}
 
-  ngOnInit(): void {
-    this.userService.getAllUsers().subscribe(data => {
+  ngOnInit(): void {    
+    this.usersSub$ = this.userService.getAllUsers().subscribe(data => {
       this.users = [...data];      
     })
+  }
+  
+  ngOnDestroy(): void {    
+    this.usersSub$.unsubscribe();
   }
 
   onEditUserClick(id: number) {
