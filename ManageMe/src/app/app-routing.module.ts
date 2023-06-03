@@ -19,6 +19,7 @@ import { UserDetailsComponent } from './pages/users-page/user-details/user-detai
 import { LoginComponent } from './pages/login/login.component';
 import { AuthGuard } from 'src/guards/auth.guard';
 import { AdminGuard } from 'src/guards/admin.guard';
+import { DevopsGuard } from 'src/guards/devops.guard';
 
 const routes: Routes = [
   {path: '', redirectTo: 'projects', pathMatch: 'full'},
@@ -28,16 +29,16 @@ const routes: Routes = [
   {path: 'users/details/:id', component: UserDetailsComponent, canActivate: [AuthGuard, AdminGuard]},
   {path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard]},
   {path: 'projects/details/:id', component: ProjectDetailsComponent, canActivate: [AuthGuard]},
-  {path: 'projects/create', component: ProjectCreateComponent, canActivate: [AuthGuard]},
-  {path: 'projects/edit/:id', component: ProjectEditComponent, canActivate: [AuthGuard]},
+  {path: 'projects/create', component: ProjectCreateComponent, canActivate: [AuthGuard, DevopsGuard]},
+  {path: 'projects/edit/:id', component: ProjectEditComponent, canActivate: [AuthGuard, DevopsGuard]},
   {path: 'functionalities', component: FunctionalitiesComponent, canActivate: [AuthGuard]},
-  {path: 'functionalities/create', component: FunctionalitiesCreateComponent, canActivate: [AuthGuard]},
+  {path: 'functionalities/create', component: FunctionalitiesCreateComponent, canActivate: [AuthGuard, DevopsGuard]},
   {path: 'functionalities/details/:id', component: FunctionalitiesDetailsComponent, canActivate: [AuthGuard]},
-  {path: 'functionalities/edit/:id', component: FunctionalitiesEditComponent, canActivate: [AuthGuard]},
+  {path: 'functionalities/edit/:id', component: FunctionalitiesEditComponent, canActivate: [AuthGuard, DevopsGuard]},
   {path: 'tasks', component: TasksComponent, canActivate: [AuthGuard]},
   {path: 'tasks/create', component: TaskCreateComponent, canActivate: [AuthGuard]},
   {path: 'tasks/details/:id', component: TaskDetailsComponent, canActivate: [AuthGuard]},
-  {path: 'tasks/edit/:id', component: TaskEditComponent, canActivate: [AuthGuard]},
+  {path: 'tasks/edit/:id', component: TaskEditComponent, canActivate: [AuthGuard, DevopsGuard]},
 ];
 
 @NgModule({

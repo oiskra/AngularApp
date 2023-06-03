@@ -14,7 +14,6 @@ export class AdminGuard implements CanActivate {
     return this.auth.loggedUser$.pipe(
       map((loggedUser) => {
         if(!loggedUser) {
-          // this.router.navigateByUrl('/(auth:auth/login)')
           return false;
         }
 
