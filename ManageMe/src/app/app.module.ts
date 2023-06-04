@@ -41,6 +41,12 @@ import { TaskEditComponent } from './pages/tasks-page/task-edit/task-edit.compon
 import { UserDetailsComponent } from './pages/users-page/user-details/user-details.component';
 import { UserEditComponent } from './pages/users-page/user-edit/user-edit.component';
 import { LoginComponent } from './pages/login/login.component';
+import { UserService } from 'src/services/user.service';
+import { AuthService } from 'src/services/auth.service';
+import { TaskService } from 'src/services/task.service';
+import { ProjectService } from 'src/services/project.service';
+import { FunctionalityService } from 'src/services/functionality.service';
+import { GlobalStateService } from 'src/services/global-state.service';
 
 @NgModule({
   declarations: [
@@ -87,7 +93,14 @@ import { LoginComponent } from './pages/login/login.component';
     MatSnackBarModule,
     MatTabsModule
   ],
-  providers: [],
+  providers: [
+    GlobalStateService,
+    TaskService,
+    ProjectService,
+    FunctionalityService,
+    UserService, 
+    AuthService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

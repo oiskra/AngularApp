@@ -2,8 +2,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, tap } from 'rxjs';
+import { User } from 'src/models/user.model';
 import { AuthService } from 'src/services/auth.service';
+import { UserService } from 'src/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +21,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   protected registerForm = this.fb.group({
     name: ['', Validators.required],
     surname: ['', Validators.required],
-    login: ['', Validators.required, this.loginNotTaken()],
+    login: ['', Validators.compose([Validators.required, this.loginNotTaken()])],
     password: ['', Validators.compose([
       Validators.required, 
       Validators.minLength(8),
@@ -27,59 +29,66 @@ export class LoginComponent implements OnInit, OnDestroy {
     ])]
   })
 
+  private users: User[] = []
+  private usersSub$!: Subscription
+
   private registerFormSub$!: Subscription;
   private loginFormSub$!: Subscription;
 
   constructor(private auth: AuthService, 
     private fb: FormBuilder, 
     private router: Router,
-    private snackBar: MatSnackBar) {}
+    private snackBar: MatSnackBar,
+    private userService: UserService) {}
   
   ngOnInit(): void {
     this.registerFormSub$ = this.registerForm.statusChanges.subscribe();
-    this.loginFormSub$ = this.loginForm.statusChanges.subscribe();
+    this.loginFormSub$ = this.loginForm.statusChanges.subscribe(); 
+    this.usersSub$ = this.userService.getAllUsers().subscribe(users => {
+      console.log('login init', users);
+      
+      this.users = [...users];
+    })    
   }
 
   ngOnDestroy(): void {
     this.registerFormSub$.unsubscribe();
     this.loginFormSub$.unsubscribe();
+    this.usersSub$.unsubscribe();
   }
 
-  async onRegisterSubmit() {
+  onRegisterSubmit() {
     const {value} = this.registerForm;
 
-    const registerSuccess: boolean = await this.auth.register(
+    const res = this.auth.register(
       value.login!,
       value.password!,
       value.name!,
-      value.surname!
-    );
+      value.surname!,
+      this.users
+    )
 
-    if(!registerSuccess) {
-      const sb = this.snackBar.open('Register failed.. Try again!');
-      setTimeout(() => sb.dismiss(), 1000);
+    if(!res) {
+      this.snackBar.open('Register failed', 'Close', {
+        duration: 2000
+      })
       return;
     }
-
-    const sb = this.snackBar.open('Register successful!', 'Log In');
-    sb.onAction().subscribe(async () => {
-      await this.auth.login(value.login!, value.password!)
-        .then(() => this.router.navigateByUrl('/projects'));
-    })
   }
 
-  async onLoginSubmit() {
+  onLoginSubmit() {
     const {value} = this.loginForm;
     
-    const loginSuccess = await this.auth.login(value.login!, value.password!);
+    const res = this.auth.login(value.login!, value.password!, this.users)
 
-    if(!loginSuccess) {
-      const sb = this.snackBar.open('Login failed.. Try again!');
-      setTimeout(() => sb.dismiss(), 1000);
+    if(!res) {
+      this.snackBar.open('Login failed', 'Close', {
+        duration: 2000
+      })
       return;
     }
 
-    this.router.navigateByUrl('/projects')
+    this.router.navigateByUrl('/projects');
   }
 
   private loginNotTaken() : ValidatorFn {
@@ -91,7 +100,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           return null;
       }
 
-      return this.auth.checkLogin(control);
+      return this.auth.checkLogin(control, this.users);
     }
   }
 }

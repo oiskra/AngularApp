@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { UserService } from './user.service';
 import { Role, User } from 'src/models/user.model';
 import { AbstractControl } from '@angular/forms';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, find, map, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,70 +13,55 @@ export class AuthService {
   private _loggedUser: BehaviorSubject<User | undefined> = new BehaviorSubject<User | undefined>(undefined);
   loggedUser$: Observable<User | undefined> = this._loggedUser.asObservable();
 
+  private users$;
+
 
   constructor(private userService: UserService) {
-    this._isUserLoggedIn.subscribe({
-      next: (v) => console.log(v)
-    })
-    this._loggedUser.subscribe({
-      next: (v) => console.log(v)
-    })
+    this.users$ = this.userService.getAllUsers();
   }
 
-  async register(
+  register(
     login: string, 
     password: string, 
     name: string, 
-    surname: string
-  ): Promise<boolean> {
+    surname: string,
+    users: User[]
+  ) {
 
-    return new Promise<boolean>(resolve => {
-      this.userService.getAllUsers().subscribe(data => {
+    if(users.find(user => user.user_login === login)) {
+      return false;
+    }
 
-        if(data.find(user => user.user_login === login)) {
-          resolve(false);
-        }
-  
-        const newUser: User = {
-          user_id: Date.now(),
-          user_login: login,
-          user_password: password,
-          user_name: name,
-          user_surname: surname,
-          user_role: Role.DEVELOPER
-        } 
-    
-        this.userService.createUser(newUser);
-        resolve(true);
-  
-      }).unsubscribe();
-    })
-    
+    const newUser: User = {
+      user_id: Date.now(),
+      user_login: login,
+      user_password: password,
+      user_name: name,
+      user_surname: surname,
+      user_role: Role.DEVELOPER
+    } 
+
+    this.userService.createUser(newUser);
+    return true; 
   }
 
-  async login(login: string, password: string): Promise<boolean> {
+  login(login: string, password: string, users: User[]) {
+    
+    const user: User | undefined = users.find(user => {
+      const loginPair = user.user_login == login;
+      const passwordPair = user.user_password == password;
 
-    return new Promise<boolean>(resolve => {
-        this.userService.getAllUsers()
-        .subscribe(data => {
-          
-          const user: User | undefined = data.find(user => {
-            const loginPair = user.user_login == login;
-            const passwordPair = user.user_password == password;
-  
-            return loginPair && passwordPair;
-          })          
-  
-          if(!user) {
-            resolve(false);
-            return;
-          }
-          
-          this._isUserLoggedIn.next(true);          
-          this._loggedUser.next(user);
-          resolve(true);
-        }).unsubscribe();
-      });
+      return loginPair && passwordPair;
+    })          
+
+    if(!user) {
+      return false;
+    }
+    
+    this._isUserLoggedIn.next(true);          
+    this._loggedUser.next(user);
+    return true;  
+
   }
 
   logout() {
@@ -88,21 +73,15 @@ export class AuthService {
 
   }
 
-  checkLogin(control: AbstractControl) {
-    const loginTaken = new Promise(resolve => {
-      this.userService.getAllUsers().subscribe((data) => {
-        const loginTaken: boolean = data.some(user => user.user_login === control.value);
+  checkLogin(control: AbstractControl, users: User[]) {
+    
+    const loginTaken: boolean = users.some(user => user.user_login === control.value);
 
-        if(loginTaken) {
-          resolve({loginTaken:true});
-          return;
-        }
+    if(loginTaken) {
+      return {loginTaken:true};
+    }
 
-        resolve(null)
-      })
-    }).then(res => res);
-
-    return loginTaken
+    return null;
   }
 
 }

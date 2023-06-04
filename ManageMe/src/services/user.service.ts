@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, ReplaySubject, mergeAll, switchAll, switchMap } from 'rxjs';
 import { Role, User } from 'src/models/user.model';
 
 @Injectable({
@@ -7,14 +7,14 @@ import { Role, User } from 'src/models/user.model';
 })
 export class UserService {
 
-  private _users: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([
+  private _users: BehaviorSubject<User[]> = new BehaviorSubject([
     {
       user_id: 0,
       user_login: "johndoe",
       user_password: "password123",
       user_name: "John",
       user_surname: "Doe",
-      user_role: Role.DEVELOPER,
+      user_role: 'developer' as Role,
     },
     {
       user_id: 1,
@@ -22,7 +22,7 @@ export class UserService {
       user_password: "password123",
       user_name: "Jane",
       user_surname: "Doe",
-      user_role: Role.DEVOPS,
+      user_role: 'devops' as Role,
     },
     {
       user_id: 3,
@@ -30,16 +30,19 @@ export class UserService {
       user_password: "admin",
       user_name: "Ad",
       user_surname: "Min",
-      user_role: Role.ADMIN,
+      user_role: 'admin' as Role,
     }
     
   ]);
 
+
   private users$: Observable<User[]> = this._users.asObservable();
 
-  constructor() { }
 
-  getAllUsers(): Observable<User[]> { 
+  constructor() {}
+
+  getAllUsers() { 
+    console.log('user service getAll', this._users.getValue());   
     return this.users$;
   }
 
@@ -47,8 +50,11 @@ export class UserService {
     return this._users.getValue().find(user => user.user_id === id)
   }
 
-  createUser(user: User) {
-    this._users.getValue().push(user);
+  createUser(user: User) {        
+    const currentUsersArr = this._users.value;
+    const updatedUsersArr = [...currentUsersArr, user];    
+    this._users.next(updatedUsersArr);
+    console.log('createUser func', this._users.value);
   }
 
   updateUser(id: number, user: User) {

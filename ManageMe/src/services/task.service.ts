@@ -65,7 +65,7 @@ export class TaskService {
 
   private tasks$: Observable<Task[]> = this._tasks.asObservable();
 
-  constructor() { }
+  constructor() {}
 
   getAllTasks(): Observable<Task[]> {
     return this.tasks$;
