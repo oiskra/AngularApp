@@ -42,7 +42,6 @@ export class UserService {
   constructor() {}
 
   getAllUsers() { 
-    console.log('user service getAll', this._users.getValue());   
     return this.users$;
   }
 
@@ -54,7 +53,6 @@ export class UserService {
     const currentUsersArr = this._users.value;
     const updatedUsersArr = [...currentUsersArr, user];    
     this._users.next(updatedUsersArr);
-    console.log('createUser func', this._users.value);
   }
 
   updateUser(id: number, user: User) {

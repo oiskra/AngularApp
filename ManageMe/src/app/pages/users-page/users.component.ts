@@ -18,14 +18,13 @@ export class UsersComponent implements OnInit, OnDestroy {
     private userService: UserService) {}
 
   ngOnInit(): void {    
-    this.userService.getAllUsers().subscribe(data => {
-      console.log('init users component', data)
+    this.usersSub$ = this.userService.getAllUsers().subscribe(data => {
       this.users = [...data];      
     })
   }
   
   ngOnDestroy(): void {    
-    //this.usersSub$.unsubscribe();
+    this.usersSub$.unsubscribe();
   }
 
   onEditUserClick(id: number) {

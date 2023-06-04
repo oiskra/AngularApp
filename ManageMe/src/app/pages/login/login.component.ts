@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   protected registerForm = this.fb.group({
     name: ['', Validators.required],
     surname: ['', Validators.required],
-    login: ['', Validators.compose([Validators.required, this.loginNotTaken()])],
+    login: ['', Validators.required, this.loginNotTaken()],
     password: ['', Validators.compose([
       Validators.required, 
       Validators.minLength(8),
@@ -29,65 +29,63 @@ export class LoginComponent implements OnInit, OnDestroy {
     ])]
   })
 
-  private users: User[] = []
-  private usersSub$!: Subscription
-
   private registerFormSub$!: Subscription;
   private loginFormSub$!: Subscription;
 
   constructor(private auth: AuthService, 
     private fb: FormBuilder, 
     private router: Router,
-    private snackBar: MatSnackBar,
-    private userService: UserService) {}
+    private snackBar: MatSnackBar) {}
   
   ngOnInit(): void {
     this.registerFormSub$ = this.registerForm.statusChanges.subscribe();
-    this.loginFormSub$ = this.loginForm.statusChanges.subscribe(); 
-    this.usersSub$ = this.userService.getAllUsers().subscribe(users => {
-      console.log('login init', users);
-      
-      this.users = [...users];
-    })    
+    this.loginFormSub$ = this.loginForm.statusChanges.subscribe();     
   }
 
   ngOnDestroy(): void {
     this.registerFormSub$.unsubscribe();
     this.loginFormSub$.unsubscribe();
-    this.usersSub$.unsubscribe();
   }
 
-  onRegisterSubmit() {
+  async onRegisterSubmit() {
     const {value} = this.registerForm;
 
-    const res = this.auth.register(
+    const registerSuccess = await this.auth.register(
       value.login!,
       value.password!,
       value.name!,
-      value.surname!,
-      this.users
-    )
+      value.surname!
+    );
 
-    if(!res) {
+    if(!registerSuccess) {
       this.snackBar.open('Register failed', 'Close', {
         duration: 2000
-      })
+      });
       return;
     }
+
+    const sb = this.snackBar.open('Register successful!', 'Log In', {duration: 3000});
+    sb.onAction().subscribe(async () => {
+      sb.dismiss();
+      await this.auth.login(value.login!, value.password!)
+        .then((success) => success && this.router.navigateByUrl('/projects'));
+    });
   }
 
-  onLoginSubmit() {
+  async onLoginSubmit() {
     const {value} = this.loginForm;
     
-    const res = this.auth.login(value.login!, value.password!, this.users)
+    const loginSuccess = await this.auth.login(value.login!, value.password!);
 
-    if(!res) {
+    if(!loginSuccess) {
       this.snackBar.open('Login failed', 'Close', {
         duration: 2000
-      })
+      });
       return;
     }
-
+    this.snackBar.open('Login successful!', 'Close', {
+      duration: 2000
+    });
     this.router.navigateByUrl('/projects');
   }
 
@@ -100,7 +98,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           return null;
       }
 
-      return this.auth.checkLogin(control, this.users);
+      return this.auth.checkLogin(control);
     }
   }
 }
