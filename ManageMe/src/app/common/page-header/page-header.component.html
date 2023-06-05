@@ -1,4 +1,7 @@
 <mat-toolbar color="primary" class="header mat-elevation-z8">
-    <span class="title">{{title}}</span>
+    <div>
+        <span class="title">{{title}}</span>
+        <span class="subtitle">Working project: <strong>{{projectName$ | async }}</strong></span>
+    </div>
     <button *ngIf="displayButton" mat-button class="add-btn" (click)="onHeaderButtonClick()">{{buttonTitle}}</button>
 </mat-toolbar>
