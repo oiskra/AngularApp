@@ -83,9 +83,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       });
       return;
     }
-    this.snackBar.open('Login successful!', 'Close', {
-      duration: 2000
-    });
+    
     this.router.navigateByUrl('/projects');
   }
 
