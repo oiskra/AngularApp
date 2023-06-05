@@ -1,9 +1,11 @@
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, CdkDragStart, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, map } from 'rxjs';
 import { State } from 'src/models/state.model';
 import { Task } from 'src/models/task.model';
+import { AuthService } from 'src/services/auth.service';
 import { TaskService } from 'src/services/task.service';
 
 @Component({
@@ -16,11 +18,16 @@ export class TasksComponent implements OnInit, OnDestroy {
   protected tasksToDo: Task[] = [];
   protected tasksDoing: Task[] = [];
   protected tasksDone: Task[] = [];
+  private loggedUserId!: number;
 
   private taskSub$!: Subscription;
+  private loggedUserIdSub$!: Subscription;
 
-  constructor(private taskService: TaskService, 
-    private router: Router) { }
+  constructor(
+    private auth: AuthService,
+    private taskService: TaskService, 
+    private router: Router,
+    private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.taskSub$ = this.taskService.getAllTasks().subscribe(data => {
@@ -46,17 +53,34 @@ export class TasksComponent implements OnInit, OnDestroy {
         }
       })
     });  
+
+    this.loggedUserIdSub$ = this.auth.loggedUser$.pipe(
+      map(user => user!.user_id)
+    ) .subscribe(id => {this.loggedUserId = id});
   }
 
   ngOnDestroy(): void {
     this.taskSub$.unsubscribe();
+    this.loggedUserIdSub$.unsubscribe();
   }
 
   onAddTaskClick() {
     this.router.navigateByUrl('tasks/create');
   }
 
+  test(event: CdkDragStart){
+    console.log('started');
+    event.source.reset()
+  }
+
   changeState(event: CdkDragDrop<Task[]>) {
+    if(event.previousContainer.data[event.previousIndex].task_assignedEmployeeId !== this.loggedUserId) {
+      this.snackBar.open("You can't update tasks that are not assigned to you", undefined, {
+        duration: 2000
+      })
+      return;
+    }
+
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {

@@ -11,7 +11,11 @@
           [cdkDropListConnectedTo]="[DOING]"
           class="example-list"
           (cdkDropListDropped)="changeState($event)">
-          <app-task-list-item *ngFor="let task of tasksToDo" [task]="task" cdkDrag></app-task-list-item>
+          <app-task-list-item 
+            *ngFor="let task of tasksToDo" 
+            [task]="task" 
+            cdkDrag
+          ></app-task-list-item>
         </div>
     </div>
     <div class="tasks-container">
@@ -25,7 +29,11 @@
           [cdkDropListConnectedTo]="[TODO, DONE]"
           class="example-list"
           (cdkDropListDropped)="changeState($event)">
-          <app-task-list-item *ngFor="let task of tasksDoing" [task]="task" cdkDrag></app-task-list-item>
+          <app-task-list-item 
+            *ngFor="let task of tasksDoing" 
+            [task]="task" 
+            cdkDrag
+          ></app-task-list-item>
         </div>
     </div>
     <div class="tasks-container">
@@ -39,7 +47,11 @@
           [cdkDropListConnectedTo]="[DOING]"
           class="example-list"
           (cdkDropListDropped)="changeState($event)">
-          <app-task-list-item *ngFor="let task of tasksDone" [task]="task" cdkDrag></app-task-list-item>
+          <app-task-list-item 
+            *ngFor="let task of tasksDone" 
+            [task]="task" 
+            cdkDrag
+          ></app-task-list-item>
         </div>
     </div>
 </div>
