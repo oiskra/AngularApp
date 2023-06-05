@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Observable, iif, map, mergeMap, of, tap } from 'rxjs';
+import { Observable, iif, map, mergeMap, of, switchMap, tap } from 'rxjs';
 import { GlobalStateService } from 'src/services/global-state.service';
 import { ProjectService } from 'src/services/project.service';
 
@@ -23,7 +23,7 @@ export class PageHeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.projectName$ = this.globalState.workingProject$.pipe(
-      mergeMap(id => of(this.projectService.getProject(id))),
+      switchMap(id => of(this.projectService.getProject(id))),
       map(project => !project ? 'NOT SELECTED' : project.project_name),
     )
   }
