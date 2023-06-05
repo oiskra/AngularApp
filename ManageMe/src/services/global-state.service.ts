@@ -10,16 +10,11 @@ export class GlobalStateService {
   private _workingProject: ReplaySubject<number> = new ReplaySubject(1);
   public workingProject$: Observable<number> = this._workingProject.asObservable();
 
-  private _currentUser: Subject<User> = new Subject();
-  public currentUser$: Observable<User> = this._currentUser.asObservable();
-
-  constructor() { }
+  constructor() {
+    this._workingProject.next(-1);
+  }
 
   setWorkingProject(id: number) {
     this._workingProject.next(id);
-  }
-
-  setCurrentUser(user: User) {
-    this._currentUser.next(user);
   }
 }
