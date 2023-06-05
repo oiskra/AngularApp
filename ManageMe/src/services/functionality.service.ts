@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, map } from 'rxjs';
 import { Functionality } from 'src/models/functionality.model';
 import { TaskService } from './task.service';
 
@@ -50,9 +50,9 @@ export class FunctionalityService {
 
   private functionalities$: Observable<Functionality[]> = this._functionalities.asObservable();
 
-  constructor(taskService: TaskService) {
+  constructor(private taskService: TaskService) {
     this._functionalities.getValue().forEach(func => {
-      taskService.getRelatedFunctionalityTasks(func.functionality_ID).subscribe(data => {
+      this.taskService.getRelatedFunctionalityTasks(func.functionality_ID).subscribe(data => {
         const clone = {...func}
         if(data.every(task => task.task_state === 'TODO')) {
             clone.functionality_state = 'TODO';
@@ -95,6 +95,16 @@ export class FunctionalityService {
       return;
     }
     this._functionalities.getValue().splice(index, 1);
-    this._functionalities.next(this._functionalities.getValue())
+    this._functionalities.next(this._functionalities.getValue());
+
+    this.taskService.getRelatedFunctionalityTasks(id)
+      .pipe(
+        map(data => data.map(task => task.task_ID))
+      )
+      .subscribe(data => {
+        for (const taskId of data) {
+          this.taskService.deleteTask(taskId);
+        }
+      }).unsubscribe();
   }
 }

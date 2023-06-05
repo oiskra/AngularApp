@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, tap, filter, map, mergeMap } from 'rxjs';
 import { Project } from 'src/models/project.model';
+import { FunctionalityService } from './functionality.service';
+import { TaskService } from './task.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +24,7 @@ export class ProjectService {
   
   private projects$: Observable<Project[]> = this._projects.asObservable();
 
-  constructor() { }
+  constructor(private functionalityService: FunctionalityService) { }
   
   getAllProjects(): Observable<Project[]> {
     return this.projects$;
@@ -51,7 +53,17 @@ export class ProjectService {
       return;
     }
     this._projects.getValue().splice(index, 1);
-    this._projects.next(this._projects.getValue())
-  }
+    this._projects.next(this._projects.getValue());
 
+    this.functionalityService.getAllFunctionalities()
+      .pipe(
+        map(data => data.filter(functionality => functionality.functionality_projectId === id)),
+        map(data => data.map(functionality => functionality.functionality_ID))
+      )
+      .subscribe(data => {
+        for (const funcId of data) {
+          this.functionalityService.deleteFunctionality(funcId);
+        }
+      }).unsubscribe();
+  }
 }
