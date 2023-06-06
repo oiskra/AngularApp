@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, map } from 'rxjs';
+import { BehaviorSubject, Observable, map, switchMap } from 'rxjs';
 import { Functionality } from 'src/models/functionality.model';
 import { TaskService } from './task.service';
+import { GlobalStateService } from './global-state.service';
 
 
 @Injectable({
@@ -50,7 +51,9 @@ export class FunctionalityService {
 
   private functionalities$: Observable<Functionality[]> = this._functionalities.asObservable();
 
-  constructor(private taskService: TaskService) {
+  constructor(
+    private taskService: TaskService, 
+    private globalState: GlobalStateService) {
     this._functionalities.getValue().forEach(func => {
       this.taskService.getRelatedFunctionalityTasks(func.functionality_ID).subscribe(data => {
         const clone = {...func}
@@ -70,6 +73,18 @@ export class FunctionalityService {
 
   getAllFunctionalities(): Observable<Functionality[]> {
     return this.functionalities$;
+  }
+
+  getAllWorkingFunctionalities() {
+    return this.functionalities$.pipe(
+      switchMap((data) => {
+        return this.globalState.workingProject$.pipe(
+          map(workingProjectId => {
+            return data.filter(func => func.functionality_projectId === workingProjectId)
+          })
+        )
+      })
+    );
   }
 
   getFunctionality(id: number) {

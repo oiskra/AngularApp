@@ -2,12 +2,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription, map } from 'rxjs';
+import { Observable, Subscription, map } from 'rxjs';
 import { Functionality } from 'src/models/functionality.model';
 import { Task } from 'src/models/task.model';
 import { User } from 'src/models/user.model';
 import { FunctionalityService } from 'src/services/functionality.service';
-import { GlobalStateService } from 'src/services/global-state.service';
 import { TaskService } from 'src/services/task.service';
 import { UserService } from 'src/services/user.service';
 
@@ -19,10 +18,8 @@ import { UserService } from 'src/services/user.service';
 export class TaskEditComponent implements OnInit, OnDestroy{
   private selectedId!: number;
   private selectedTask?: Task;
-  protected functionalitiesOptions: Functionality[] = [];
+  protected functionalities$!: Observable<Functionality[]>
   protected userOptions: User[] = [];
-  private workingProjectId!: number; 
-  private funcSub$!: Subscription;
   private userSub$!: Subscription;
 
   protected editForm = this.formBuilder.nonNullable.group({
@@ -39,7 +36,6 @@ export class TaskEditComponent implements OnInit, OnDestroy{
     private taskService: TaskService,
     private functionalityService: FunctionalityService,
     private userService: UserService,
-    private globalState: GlobalStateService,
     private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
@@ -49,14 +45,7 @@ export class TaskEditComponent implements OnInit, OnDestroy{
       this.selectedTask = this.taskService.getTask(this.selectedId);
     })
     
-    this.globalState.workingProject$.subscribe(projId => {this.workingProjectId = projId})
-    
-    this.funcSub$ = this.functionalityService.getAllFunctionalities()
-    .subscribe(data => {
-      this.functionalitiesOptions = data.filter(func => {        
-        return func.functionality_projectId === this.workingProjectId;
-      })
-    });
+    this.functionalities$ = this.functionalityService.getAllWorkingFunctionalities();
 
     this.userSub$ = this.userService.getAllUsers().subscribe(data => {this.userOptions = [...data]})
 
@@ -71,7 +60,6 @@ export class TaskEditComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy(): void {
-    this.funcSub$.unsubscribe();
     this.userSub$.unsubscribe();
   }
   

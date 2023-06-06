@@ -30,7 +30,7 @@ export class TasksComponent implements OnInit, OnDestroy {
     private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
-    this.taskSub$ = this.taskService.getAllTasks().subscribe(data => {
+    this.taskSub$ = this.taskService.getAllWorkingTasks().subscribe(data => {
       this.tasks = [...data]
       
       if(data.length === [...this.tasksToDo, ...this.tasksDone, ...this.tasksDoing].length) {return;}

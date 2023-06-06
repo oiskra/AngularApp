@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormControl } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -7,7 +7,6 @@ import { Functionality } from 'src/models/functionality.model';
 import { Role, User } from 'src/models/user.model';
 import { AuthService } from 'src/services/auth.service';
 import { FunctionalityService } from 'src/services/functionality.service';
-import { TaskService } from 'src/services/task.service';
 
 @Component({
   selector: 'app-functionalities',
@@ -25,13 +24,12 @@ export class FunctionalitiesComponent implements OnInit, OnDestroy {
 
   constructor(private router: Router,
     protected functionalityService: FunctionalityService,
-    private taskService: TaskService,
     private auth: AuthService) {}
 
 
   ngOnInit(): void {
     
-    this.functionalitiesSub$ = this.functionalityService.getAllFunctionalities().subscribe(data => {
+    this.functionalitiesSub$ = this.functionalityService.getAllWorkingFunctionalities().subscribe(data => {
       this.functionalities.data = [...data]
     })
 

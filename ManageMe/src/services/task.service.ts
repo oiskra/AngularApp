@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, map } from 'rxjs';
-import { State } from 'src/models/state.model';
+import { Injectable, Injector } from '@angular/core';
+import { BehaviorSubject, Observable, map, switchMap } from 'rxjs';
 import { Task } from 'src/models/task.model';
+import { FunctionalityService } from './functionality.service';
 
 @Injectable({
   providedIn: 'root'
@@ -65,20 +65,34 @@ export class TaskService {
 
   private tasks$: Observable<Task[]> = this._tasks.asObservable();
 
-  constructor() {}
+  constructor(private injector: Injector) {}
 
   getAllTasks(): Observable<Task[]> {
     return this.tasks$;
   }
 
-  getTask(id: number) : Task | undefined {
-    return this._tasks.getValue().find(task => task.task_ID === id)
+  getAllWorkingTasks(): Observable<Task[]> {
+    const functionalityService = this.injector.get(FunctionalityService);
+    return this.tasks$.pipe(
+      switchMap(tasks => {
+        return functionalityService.getAllWorkingFunctionalities().pipe(
+          map(funcs => funcs.map(func => func.functionality_ID)),
+          map(funcIds => {
+            return tasks.filter(task => funcIds.some(id => id === task.task_functionalityId))
+          })
+        )        
+      })
+    );
   }
-
+  
   getRelatedFunctionalityTasks(functionalityId: number): Observable<Task[]> {
     return this.tasks$.pipe(map(
       tasks => tasks.filter(task => task.task_functionalityId === functionalityId)
     ));
+  }
+
+  getTask(id: number) : Task | undefined {
+    return this._tasks.getValue().find(task => task.task_ID === id)
   }
 
   createTask(task: Task) {

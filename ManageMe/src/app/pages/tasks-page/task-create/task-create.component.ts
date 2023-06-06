@@ -2,13 +2,12 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Functionality } from 'src/models/functionality.model';
 import { Task } from 'src/models/task.model';
 import { User } from 'src/models/user.model';
 import { AuthService } from 'src/services/auth.service';
 import { FunctionalityService } from 'src/services/functionality.service';
-import { GlobalStateService } from 'src/services/global-state.service';
 import { TaskService } from 'src/services/task.service';
 
 @Component({
@@ -27,16 +26,11 @@ export class TaskCreateComponent implements OnInit, OnDestroy{
   })
   private currentUserSub$!: Subscription;
   private currentUser?: User;
-  private workingProjectId!: number; 
-  protected functionalitiesOptions: Functionality[] = [];
-  private funcSub$!: Subscription;
-
-
   
+  protected functionalities$!: Observable<Functionality[]>;  
 
   constructor(
     private functionalityService: FunctionalityService,
-    private globalState: GlobalStateService,
     private auth: AuthService,
     private taskService: TaskService,
     private formBuilder: FormBuilder, 
@@ -48,20 +42,11 @@ export class TaskCreateComponent implements OnInit, OnDestroy{
       this.currentUser = {...data!};
     })
 
-    this.globalState.workingProject$.subscribe(projId => {this.workingProjectId = projId})
-    
-    this.funcSub$ = this.functionalityService.getAllFunctionalities()
-    .subscribe(data => {
-      this.functionalitiesOptions = data.filter(func => {        
-        return func.functionality_projectId === this.workingProjectId;
-      })
-    });
-
+    this.functionalities$ = this.functionalityService.getAllWorkingFunctionalities();
   }
 
   ngOnDestroy(): void {
     this.currentUserSub$.unsubscribe();
-    this.funcSub$.unsubscribe();
   }
 
   onSubmit() {
