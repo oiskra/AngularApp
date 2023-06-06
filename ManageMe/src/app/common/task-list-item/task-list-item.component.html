@@ -1,5 +1,8 @@
 <div class="example-box">
-    <span>{{task.task_name}}</span>
+    <mat-card style="box-shadow: none;">
+        <mat-card-title>{{task.task_name}}</mat-card-title>
+        <mat-card-subtitle *ngIf="loggedUserTask">You've been assigned to this task.</mat-card-subtitle>
+    </mat-card>
     <button mat-icon-button [matMenuTriggerFor]="menu">
       <mat-icon>more_vert</mat-icon>
     </button>
@@ -8,14 +11,14 @@
             Details
         </button>
         <button 
-            *ngIf="loggedUserTask"
+            *ngIf="loggedUserTask || devopsRole"
             mat-menu-item 
             (click)="onEditClick(task.task_ID)"
         >
             Edit
         </button>
         <button 
-            *ngIf="loggedUserTask"
+            *ngIf="loggedUserTask || devopsRole"
             mat-menu-item 
             (click)="onDeleteClick(task.task_ID)"
         >

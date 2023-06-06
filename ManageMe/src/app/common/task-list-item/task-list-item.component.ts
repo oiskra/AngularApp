@@ -12,6 +12,7 @@ import { TaskService } from 'src/services/task.service';
 })
 export class TaskListItemComponent implements OnInit {
   protected loggedUserTask!: boolean
+  protected devopsRole!: boolean
 
   @Input() task!: Task; 
 
@@ -19,7 +20,8 @@ export class TaskListItemComponent implements OnInit {
   
   ngOnInit(): void {
     this.auth.loggedUser$.subscribe(user => {
-      this.loggedUserTask = this.task.task_assignedEmployeeId === user?.user_id || user?.user_role === Role.DEVOPS;
+      this.devopsRole = user?.user_role === Role.DEVOPS;
+      this.loggedUserTask = this.task.task_assignedEmployeeId === user?.user_id;
     })
   }
 

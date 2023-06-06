@@ -68,11 +68,6 @@ export class TasksComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl('tasks/create');
   }
 
-  test(event: CdkDragStart){
-    console.log('started');
-    event.source.reset()
-  }
-
   changeState(event: CdkDragDrop<Task[]>) {
     if(event.previousContainer.data[event.previousIndex].task_assignedEmployeeId !== this.loggedUserId) {
       this.snackBar.open("You can't update tasks that are not assigned to you", undefined, {
