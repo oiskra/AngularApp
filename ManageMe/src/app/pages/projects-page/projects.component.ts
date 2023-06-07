@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Project } from 'src/models/project.model';
-import { Role, User } from 'src/models/user.model';
+import { Role } from 'src/models/user.model';
 import { AuthService } from 'src/services/auth.service';
 import { ProjectService } from 'src/services/project.service';
 

@@ -1,8 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, UntypedFormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, Subscription, map } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { Functionality } from 'src/models/functionality.model';
 import { Task } from 'src/models/task.model';
 import { Role, User } from 'src/models/user.model';

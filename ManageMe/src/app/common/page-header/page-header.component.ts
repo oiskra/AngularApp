@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Observable, iif, map, mergeMap, of, switchMap, tap } from 'rxjs';
+import { Observable, map, of, switchMap } from 'rxjs';
 import { GlobalStateService } from 'src/services/global-state.service';
 import { ProjectService } from 'src/services/project.service';
 

@@ -2,10 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { Subscription, tap } from 'rxjs';
-import { User } from 'src/models/user.model';
+import { Subscription } from 'rxjs';
 import { AuthService } from 'src/services/auth.service';
-import { UserService } from 'src/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -66,10 +64,10 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     const sb = this.snackBar.open('Register successful!', 'Log In', {duration: 3000});
     sb.onAction().subscribe(async () => {
-      sb.dismiss();
       await this.auth.login(value.login!, value.password!)
-        .then((success) => success && this.router.navigateByUrl('/projects'));
-    }).unsubscribe();
+      .then((success) => success && this.router.navigateByUrl('/projects'));
+      sb.dismiss();
+    })
   }
 
   async onLoginSubmit() {

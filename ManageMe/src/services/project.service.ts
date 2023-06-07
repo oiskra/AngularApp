@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject, tap, filter, map, mergeMap } from 'rxjs';
+import { BehaviorSubject, Observable, map } from 'rxjs';
 import { Project } from 'src/models/project.model';
 import { FunctionalityService } from './functionality.service';
-import { TaskService } from './task.service';
 
 @Injectable({
   providedIn: 'root'

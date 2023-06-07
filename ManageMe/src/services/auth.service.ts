@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { UserService } from './user.service';
-import { Role, User } from 'src/models/user.model';
 import { AbstractControl } from '@angular/forms';
-import { BehaviorSubject, Observable, find, map, take, tap } from 'rxjs';
+import { BehaviorSubject, Observable, take } from 'rxjs';
+import { Role, User } from 'src/models/user.model';
 import { GlobalStateService } from './global-state.service';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'

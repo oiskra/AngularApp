@@ -4,7 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Functionality } from 'src/models/functionality.model';
-import { Role, User } from 'src/models/user.model';
+import { Role } from 'src/models/user.model';
 import { AuthService } from 'src/services/auth.service';
 import { FunctionalityService } from 'src/services/functionality.service';
 

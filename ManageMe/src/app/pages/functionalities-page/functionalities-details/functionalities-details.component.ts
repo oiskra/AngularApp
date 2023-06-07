@@ -1,10 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, Subscription, filter, map, of, switchMap, tap } from 'rxjs';
+import { Observable, Subscription, map, of, switchMap } from 'rxjs';
 import { Functionality } from 'src/models/functionality.model';
-import { Project } from 'src/models/project.model';
 import { Task } from 'src/models/task.model';
-import { Role, User } from 'src/models/user.model';
+import { User } from 'src/models/user.model';
 import { FunctionalityService } from 'src/services/functionality.service';
 import { ProjectService } from 'src/services/project.service';
 import { TaskService } from 'src/services/task.service';

@@ -6,7 +6,7 @@ import {
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { Observable, Subscription, map, takeWhile } from 'rxjs';
+import { Subscription, map } from 'rxjs';
 import { Functionality } from 'src/models/functionality.model';
 import { State } from 'src/models/state.model';
 import { Task } from 'src/models/task.model';
