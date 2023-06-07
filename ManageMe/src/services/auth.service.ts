@@ -9,9 +9,12 @@ import { UserService } from './user.service';
   providedIn: 'root'
 })
 export class AuthService {
-  private _isUserLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private loggedIdLocalStorageExists: boolean = localStorage.getItem('logged') !== null;
+  private _isUserLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.loggedIdLocalStorageExists);
   isUserLoggedIn$: Observable<boolean> = this._isUserLoggedIn.asObservable();
-  private _loggedUser: BehaviorSubject<User | undefined> = new BehaviorSubject<User | undefined>(undefined);
+  private _loggedUser: BehaviorSubject<User | undefined> = new BehaviorSubject<User | undefined>(
+    this.loggedIdLocalStorageExists ? this.userService.getUser(Number(localStorage.getItem('logged')!)) : undefined
+  );
   loggedUser$: Observable<User | undefined> = this._loggedUser.asObservable();
 
   constructor(
@@ -70,6 +73,7 @@ export class AuthService {
         
         this._isUserLoggedIn.next(true);          
         this._loggedUser.next(user);
+        localStorage.setItem('logged', JSON.stringify(user.user_id));
         resolve(true);  
       }).unsubscribe();
     })
@@ -77,6 +81,7 @@ export class AuthService {
   }
 
   logout() {
+    localStorage.removeItem('logged');
     this._loggedUser.next(undefined);
     this._isUserLoggedIn.next(false)
     this.globalState.setWorkingProject(GlobalStateService.NOT_SELECTED_PROJECT);

@@ -24,9 +24,9 @@ import { DevopsGuard } from 'src/guards/devops.guard';
 const routes: Routes = [
   {path: '', redirectTo: 'projects', pathMatch: 'full'},
   {path: 'auth/login', component: LoginComponent, outlet: 'auth'},
-  {path: 'users', component: UsersComponent, canActivate: [AuthGuard]},
-  {path: 'users/edit/:id', component: UserEditComponent, canActivate: [AuthGuard]},
-  {path: 'users/details/:id', component: UserDetailsComponent, canActivate: [AuthGuard]},
+  {path: 'users', component: UsersComponent, canActivate: [AuthGuard, AdminGuard]},
+  {path: 'users/edit/:id', component: UserEditComponent, canActivate: [AuthGuard, AdminGuard]},
+  {path: 'users/details/:id', component: UserDetailsComponent, canActivate: [AuthGuard, AdminGuard]},
   {path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard]},
   {path: 'projects/details/:id', component: ProjectDetailsComponent, canActivate: [AuthGuard]},
   {path: 'projects/create', component: ProjectCreateComponent, canActivate: [AuthGuard, DevopsGuard]},
