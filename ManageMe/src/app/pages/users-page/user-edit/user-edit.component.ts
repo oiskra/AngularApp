@@ -16,7 +16,13 @@ export class UserEditComponent implements OnInit {
   protected editForm = this.formBuilder.group({
     name: ['', Validators.required],
     surname: ['', Validators.required],
-    role: ['', Validators.required]
+    role: ['', Validators.required],
+    login: ['', Validators.required],
+    password: ['', Validators.compose([
+      Validators.required, 
+      Validators.minLength(8),
+      Validators.pattern(new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$'))
+    ])]
   });
   
   constructor(private formBuilder: FormBuilder, 
@@ -33,7 +39,9 @@ export class UserEditComponent implements OnInit {
     this.editForm.setValue({
       name: this.selectedUser?.user_name!,
       surname: this.selectedUser?.user_surname!,
-      role: this.selectedUser?.user_role!
+      role: this.selectedUser?.user_role!,
+      login: this.selectedUser?.user_login!,
+      password: this.selectedUser?.user_password!
     });
   }
 
@@ -45,8 +53,8 @@ export class UserEditComponent implements OnInit {
       user_name: value.name!,
       user_surname: value.surname!,
       user_role: value.role! as Role,
-      user_login: this.selectedUser?.user_login!,
-      user_password: this.selectedUser?.user_password!
+      user_login: value.login!,
+      user_password: value.password!
     });
 
     this.snackBar.open('User edited successfully', undefined, {duration: 2000});

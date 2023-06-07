@@ -16,6 +16,26 @@
             </mat-error>
         </mat-form-field>
         <mat-form-field class="example-full-width">
+            <mat-label>Login</mat-label>
+            <input type="text" matInput formControlName="login" required/>
+            <mat-error *ngIf="editForm.get('login')?.errors?.['required']">
+                Required!
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>Password</mat-label>
+            <input type="password" matInput formControlName="password" required/>
+            <mat-error *ngIf="editForm.get('password')?.errors?.['required']">
+                Required!
+            </mat-error>
+            <mat-error *ngIf="editForm.get('password')?.errors?.['minlength']">
+                Password must be at least 8 characters!
+              </mat-error>
+              <mat-error *ngIf="!editForm.get('password')?.errors?.['minlength'] && editForm.get('password')?.errors?.['pattern']">
+                At least 1 uppercase, 1 lowercase and 1 digit!
+              </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
             <mat-label>Role</mat-label>
             <mat-select formControlName="role" required>
                 <mat-option value="developer">Developer</mat-option>
