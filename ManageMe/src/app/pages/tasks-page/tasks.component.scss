@@ -1,12 +1,13 @@
 .drag-n-drop-container {
-    padding: 50px;
+    width: 100%;
+    padding: 2rem 0;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
 }
 
 .tasks-container {
-    max-width: 100%;
-    margin: 0 25px 25px 0;
+    width: 30%;
+    // margin: 0 25px 25px 0;
     display: inline-block;
     vertical-align: top;
 }
@@ -14,7 +15,7 @@
 .example-list {
     border: solid 1px #C2185B;
     min-height: 60px;
-    width: 400px;
+    width: 100%;
     background: #424242;
     border-radius: 4px;
     overflow: hidden;
