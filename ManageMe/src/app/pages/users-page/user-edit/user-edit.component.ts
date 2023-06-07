@@ -28,13 +28,13 @@ export class UserEditComponent implements OnInit {
     this.activeRoute.params.subscribe(param => {
       this.selectedId = Number(param['id']);
       this.selectedUser = this.userService.getUser(this.selectedId);
-    })
+    });
 
     this.editForm.setValue({
       name: this.selectedUser?.user_name!,
       surname: this.selectedUser?.user_surname!,
       role: this.selectedUser?.user_role!
-    })
+    });
   }
 
   onSubmit() {
@@ -47,10 +47,8 @@ export class UserEditComponent implements OnInit {
       user_role: value.role! as Role,
       user_login: this.selectedUser?.user_login!,
       user_password: this.selectedUser?.user_password!
-    })
+    });
 
-    const snackbar = this.snackBar.open('User edited successfully')
-
-    setTimeout(() => snackbar.dismiss(), 2000)
+    this.snackBar.open('User edited successfully', undefined, {duration: 2000});
   }
 }

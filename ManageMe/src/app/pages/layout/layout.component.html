@@ -1,5 +1,5 @@
-<router-outlet name="auth" *ngIf="!userLoggedIn"></router-outlet>
-<mat-sidenav-container *ngIf="userLoggedIn" class="side-nav-container">
+<router-outlet name="auth" *ngIf="!(userLoggedIn$ | async)"></router-outlet>
+<mat-sidenav-container *ngIf="userLoggedIn$ | async" class="side-nav-container">
     <mat-sidenav mode="side" opened>
         <div class="side-nav-elements-container">
             <div style="padding-top: 20px;">
@@ -8,7 +8,7 @@
                     <a mat-list-item routerLink="projects">Projects</a>
                     <a mat-list-item routerLink="functionalities">Functionalities</a>
                     <a mat-list-item routerLink="tasks">Tasks</a>
-                    <a *ngIf="currentUser?.user_role === 'admin'" mat-list-item routerLink="users">Users</a>
+                    <a *ngIf="(currentUser$ | async)?.user_role === 'admin'" mat-list-item routerLink="users">Users</a>
                 </mat-nav-list>
             </div>
             <mat-card>
@@ -18,8 +18,8 @@
                             <mat-icon>logout</mat-icon>
                         </button>
                     </div>
-                    <mat-card-title>{{currentUser?.user_name}} {{currentUser?.user_surname}}</mat-card-title>
-                    <mat-card-subtitle>{{currentUser?.user_role}}</mat-card-subtitle>
+                    <mat-card-title>{{(currentUser$ | async)?.user_name}} {{(currentUser$ | async)?.user_surname}}</mat-card-title>
+                    <mat-card-subtitle>{{(currentUser$ | async)?.user_role}}</mat-card-subtitle>
                 </mat-card-header>
             </mat-card>
         </div>  

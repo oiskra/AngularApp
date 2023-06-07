@@ -6,7 +6,7 @@
     <h3>Assigned tasks:</h3>
     <mat-list cols="5" rowHeight="10px">
         <mat-list-item
-            *ngFor="let task of relatedTasks"
+            *ngFor="let task of relatedTasks$ | async"
         >
             {{task.task_name}} [ {{task.task_state}} ]
         </mat-list-item>

@@ -40,8 +40,6 @@ export class ProjectCreateComponent implements OnInit, OnDestroy {
     }
 
     this.projectService.createProject(newProject); 
-    const snackbar = this.snackBar.open('Project created successfuly')
-
-    setTimeout(() => snackbar.dismiss(), 2000)   
+    this.snackBar.open('Project created successfuly', undefined, {duration: 2000})
   }
 }

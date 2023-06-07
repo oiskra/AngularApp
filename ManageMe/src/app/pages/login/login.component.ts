@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     );
 
     if(!registerSuccess) {
-      this.snackBar.open('Register failed', 'Close', {
+      this.snackBar.open('Register failed', undefined, {
         duration: 2000
       });
       return;
@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       sb.dismiss();
       await this.auth.login(value.login!, value.password!)
         .then((success) => success && this.router.navigateByUrl('/projects'));
-    });
+    }).unsubscribe();
   }
 
   async onLoginSubmit() {
@@ -78,7 +78,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     const loginSuccess = await this.auth.login(value.login!, value.password!);
 
     if(!loginSuccess) {
-      this.snackBar.open('Login failed', 'Close', {
+      this.snackBar.open('Login failed', undefined, {
         duration: 2000
       });
       return;

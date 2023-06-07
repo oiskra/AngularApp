@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription, map } from 'rxjs';
+import { Observable, Subscription, map } from 'rxjs';
 import { Task } from 'src/models/task.model';
 import { User } from 'src/models/user.model';
 import { TaskService } from 'src/services/task.service';
@@ -14,11 +14,8 @@ import { UserService } from 'src/services/user.service';
 export class UserDetailsComponent implements OnInit, OnDestroy {
   private selectedId!: number;
   protected selectedUser?: User;
-  protected relatedTasks?: Task[] 
-
-
+  protected relatedTasks$?: Observable<Task[]>;
   private routeSub$!: Subscription;
-  private relatedTasksSub$!: Subscription;
 
   constructor(private route: ActivatedRoute,
     private taskService: TaskService,
@@ -30,13 +27,12 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
       this.selectedUser = this.userService.getUser(this.selectedId);
     });
 
-    this.relatedTasksSub$ = this.taskService.getAllTasks().pipe(map(data => {
+    this.relatedTasks$ = this.taskService.getAllTasks().pipe(map(data => {
       return data.filter(task => task.task_assignedEmployeeId === this.selectedId)
-    })).subscribe(data => {this.relatedTasks = [...data]});
+    }));
   }
 
   ngOnDestroy(): void {
     this.routeSub$.unsubscribe()
-    this.relatedTasksSub$.unsubscribe()
   }
 }

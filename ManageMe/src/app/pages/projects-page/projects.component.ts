@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { Project } from 'src/models/project.model';
 import { Role, User } from 'src/models/user.model';
 import { AuthService } from 'src/services/auth.service';
@@ -11,8 +12,7 @@ import { ProjectService } from 'src/services/project.service';
   styleUrls: ['./projects.component.scss']
 })
 export class ProjectsComponent implements OnInit {
-  protected projects!: Project[];
-  protected currentUser?: User;
+  protected projects$!: Observable<Project[]>;
   protected displayedColumns!: string[];
 
   constructor(private router: Router, 
@@ -20,17 +20,13 @@ export class ProjectsComponent implements OnInit {
     private auth: AuthService) {}
 
   ngOnInit(): void {
-    this.projectService.getAllProjects().subscribe(data => {
-      this.projects = [...data];      
-    })
+    this.projects$ = this.projectService.getAllProjects();
     
     this.auth.loggedUser$.subscribe(user => {
-      this.currentUser = {...user!};
+      this.displayedColumns = user?.user_role === Role.ADMIN || user?.user_role === Role.DEVOPS ? 
+        ['Name', 'Description', 'Edit', 'Delete'] :
+        ['Name', 'Description'];
     })
-    
-    this.displayedColumns = this.currentUser?.user_role === Role.ADMIN || this.currentUser?.user_role === Role.DEVOPS ? 
-      ['Name', 'Description', 'Edit', 'Delete'] :
-      ['Name', 'Description'];
   }
 
   onAddProjectClick() {

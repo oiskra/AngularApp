@@ -30,14 +30,15 @@ export class TaskDetailsComponent implements OnInit {
     this.routeSub$ = this.route.params.subscribe((params) => {
       this.selectedId = Number(params['id']);
     }); 
+    
     this.selectedTask = this.taskService.getTask(this.selectedId);
+
     const user = this.userService.getUser(this.selectedTask?.task_assignedEmployeeId!);
     this.details.employee = user?.user_name + ' ' + user?.user_surname;
+
     const functionality = this.functionalityService.getFunctionality(this.selectedTask?.task_functionalityId!)
     this.details.functionality = functionality?.functionality_name!
   }
-
-  relatedFunctionality() {}
 
   startedAt() {
     if(!this.selectedTask?.task_startedAt) {return 'NOT STARTED';}

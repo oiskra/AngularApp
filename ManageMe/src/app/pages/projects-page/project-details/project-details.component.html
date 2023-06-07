@@ -2,18 +2,18 @@
 <div class="details-container">
     <h2>{{selectedProject?.project_name}}</h2>
     <h3>Description: {{selectedProject?.project_description}}</h3>
-    <h3>Started at: {{ startedAt() }}</h3>
-    <h3>Estimated time of completion: {{ completionTime() }}h</h3>
-    <h3>Worked hours: {{ workedHours() }}h</h3>
+    <h3>Started at: {{ startedAt() | async}}</h3>
+    <h3>Estimated time of completion: {{ completionTime() | async}}h</h3>
+    <h3>Worked hours: {{ workedHours() | async}}h</h3>
     <h3>Assigned employees:</h3>
     <mat-list cols="5" rowHeight="50px">
         <mat-list-item
-            *ngFor="let user of details.users"
+            *ngFor="let user of details.users | async"
         >
                 <span matListItemTitle>{{user.user_name}} {{user.user_surname}} </span>
                 <span matListItemLine>{{user.user_role}}</span>
             </mat-list-item>
     </mat-list>
-    <button mat-raised-button [disabled]="isDisabled" (click)="setAsWorkingProject()">Set As Working Project</button>
+    <button mat-raised-button [disabled]="isSetWorkingProjectDisabled" (click)="setAsWorkingProject()">Set As Working Project</button>
 
 </div>

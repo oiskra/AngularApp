@@ -6,7 +6,6 @@ import { Subscription } from 'rxjs';
 import { Functionality } from 'src/models/functionality.model';
 import { FunctionalityService } from 'src/services/functionality.service';
 import { GlobalStateService } from 'src/services/global-state.service';
-import { ProjectService } from 'src/services/project.service';
 
 @Component({
   selector: 'app-functionalities-create',
@@ -39,6 +38,7 @@ export class FunctionalitiesCreateComponent implements OnInit, OnDestroy {
   
   ngOnDestroy(): void {
     this.subStatus$.unsubscribe();
+    this.subWorkingProject$.unsubscribe();
   }
 
   onSubmit() {

@@ -16,7 +16,6 @@ import { FunctionalityService } from 'src/services/functionality.service';
 export class FunctionalitiesComponent implements OnInit, OnDestroy {
   protected functionalities = new MatTableDataSource<Functionality>();
   protected functionalitiesSub$!: Subscription;
-  protected currentUser?: User;
   protected displayedColumns!: string[];
 
   protected filterStateSelect: FormControl<string | null> = new FormControl();
@@ -38,14 +37,12 @@ export class FunctionalitiesComponent implements OnInit, OnDestroy {
     })
 
     this.auth.loggedUser$.subscribe(user => {
-      this.currentUser = {...user!};
+      this.displayedColumns = user?.user_role === Role.ADMIN || user?.user_role === Role.DEVOPS ? 
+        ['Name', 'State', 'Edit', 'Delete'] :
+        ['Name', 'State'];
     })
-    
-    this.displayedColumns = this.currentUser?.user_role === Role.ADMIN || this.currentUser?.user_role === Role.DEVOPS ? 
-      ['Name', 'State', 'Edit', 'Delete'] :
-      ['Name', 'State'];
   }
-
+  
   ngOnDestroy(): void {
     this.filterStateSelectSub$.unsubscribe();
     this.functionalitiesSub$.unsubscribe();

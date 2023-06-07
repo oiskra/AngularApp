@@ -15,7 +15,7 @@ import { TaskService } from 'src/services/task.service';
   templateUrl: './task-create.component.html',
   styleUrls: ['./task-create.component.scss']
 })
-export class TaskCreateComponent implements OnInit, OnDestroy{
+export class TaskCreateComponent implements OnInit, OnDestroy {
 
   protected taskForm = this.formBuilder.group({
     name: ['', Validators.required],
@@ -68,9 +68,7 @@ export class TaskCreateComponent implements OnInit, OnDestroy{
 
     this.taskService.createTask(newTask); 
     this.router.navigateByUrl('/tasks')   
-    const snackbar = this.snackBar.open('Task created successfuly')
-
-    setTimeout(() => snackbar.dismiss(), 2000)
+    this.snackBar.open('Task created successfuly', undefined, {duration: 2000})
   }
 
 }

@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, UntypedFormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription, map } from 'rxjs';
 import { Functionality } from 'src/models/functionality.model';
 import { Task } from 'src/models/task.model';
-import { User } from 'src/models/user.model';
+import { Role, User } from 'src/models/user.model';
 import { FunctionalityService } from 'src/services/functionality.service';
 import { TaskService } from 'src/services/task.service';
 import { UserService } from 'src/services/user.service';
@@ -15,12 +15,11 @@ import { UserService } from 'src/services/user.service';
   templateUrl: './task-edit.component.html',
   styleUrls: ['./task-edit.component.scss']
 })
-export class TaskEditComponent implements OnInit, OnDestroy{
+export class TaskEditComponent implements OnInit {
   private selectedId!: number;
   private selectedTask?: Task;
-  protected functionalities$!: Observable<Functionality[]>
-  protected userOptions: User[] = [];
-  private userSub$!: Subscription;
+  protected functionalities$!: Observable<Functionality[]>;
+  protected userOptions$!: Observable<User[]>;
 
   protected editForm = this.formBuilder.nonNullable.group({
     name: ['', Validators.required],
@@ -43,11 +42,13 @@ export class TaskEditComponent implements OnInit, OnDestroy{
     this.activeRoute.params.subscribe(param => {
       this.selectedId = Number(param['id']);
       this.selectedTask = this.taskService.getTask(this.selectedId);
-    })
+    });
     
     this.functionalities$ = this.functionalityService.getAllWorkingFunctionalities();
 
-    this.userSub$ = this.userService.getAllUsers().subscribe(data => {this.userOptions = [...data]})
+    this.userOptions$ = this.userService.getAllUsers().pipe(
+      map((users) => users.filter(user => user.user_role !== Role.ADMIN)) 
+    );
 
     this.editForm.setValue({
       name: this.selectedTask?.task_name!, 
@@ -57,12 +58,7 @@ export class TaskEditComponent implements OnInit, OnDestroy{
       duration: this.selectedTask?.task_durationInHours!,
       assignedUser: this.selectedTask?.task_assignedEmployeeId!
     });
-  }
-
-  ngOnDestroy(): void {
-    this.userSub$.unsubscribe();
-  }
-  
+  }  
 
   onSubmit() {
     const {value} = this.editForm;
@@ -79,10 +75,8 @@ export class TaskEditComponent implements OnInit, OnDestroy{
       task_startedAt: this.selectedTask?.task_startedAt!,
       task_finishedAt: this.selectedTask?.task_finishedAt!,
       task_assignedEmployeeId: value.assignedUser!
-    })
+    });
 
-    const snackbar = this.snackBar.open('Task edited successfuly')
-
-    setTimeout(() => snackbar.dismiss(), 2000)
+    this.snackBar.open('Task edited successfuly', undefined, {duration: 2000});
   }
 }

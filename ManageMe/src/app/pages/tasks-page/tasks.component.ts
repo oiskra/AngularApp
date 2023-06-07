@@ -1,13 +1,12 @@
 import {
   CdkDragDrop,
-  CdkDragStart,
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { Subscription, map } from 'rxjs';
+import { Observable, Subscription, map, takeWhile } from 'rxjs';
 import { Functionality } from 'src/models/functionality.model';
 import { State } from 'src/models/state.model';
 import { Task } from 'src/models/task.model';
@@ -42,10 +41,7 @@ export class TasksComponent implements OnInit, OnDestroy {
     this.taskSub$ = this.taskService.getAllWorkingTasks().subscribe((data) => {
       this.tasks = [...data];
 
-      if (
-        data.length ===
-        [...this.tasksToDo, ...this.tasksDone, ...this.tasksDoing].length
-      ) {
+      if (data.length === [...this.tasksToDo, ...this.tasksDone, ...this.tasksDoing].length) {
         return;
       }
 
@@ -85,10 +81,7 @@ export class TasksComponent implements OnInit, OnDestroy {
   }
 
   changeState(event: CdkDragDrop<Task[]>) {
-    if (
-      event.previousContainer.data[event.previousIndex]
-        .task_assignedEmployeeId !== this.loggedUserId
-    ) {
+    if (event.previousContainer.data[event.previousIndex].task_assignedEmployeeId !== this.loggedUserId) {
       this.snackBar.open(
         "You can't update tasks that are not assigned to you",
         undefined,
@@ -113,16 +106,13 @@ export class TasksComponent implements OnInit, OnDestroy {
         event.currentIndex
       );
 
-      this.updateState(event);
+      this.updateStateInServices(event);
     }
   }
 
-  private updateState(event: CdkDragDrop<Task[]>) {
-    const updatedNonObservedTaskId: number =
-      event.container.data[event.currentIndex].task_ID;
-    const updatedTask: Task = this.tasks.find(
-      (task) => task.task_ID === updatedNonObservedTaskId
-    )!;
+  private updateStateInServices(event: CdkDragDrop<Task[]>) {
+    const updatedNonObservedTaskId: number =  event.container.data[event.currentIndex].task_ID;
+    const updatedTask: Task = this.taskService.getTask(updatedNonObservedTaskId)!;
     const updatedState: State = event.container.id as State;
 
     const updatedTaskClone: Task = { ...updatedTask };
