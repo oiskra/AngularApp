@@ -47,6 +47,7 @@ import { TaskService } from 'src/services/task.service';
 import { ProjectService } from 'src/services/project.service';
 import { FunctionalityService } from 'src/services/functionality.service';
 import { GlobalStateService } from 'src/services/global-state.service';
+import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { GlobalStateService } from 'src/services/global-state.service';
     UserDetailsComponent,
     UserEditComponent,
     LoginComponent,
+    NotFoundPageComponent,
   ],
   imports: [
     BrowserModule,

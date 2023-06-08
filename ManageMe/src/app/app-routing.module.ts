@@ -20,6 +20,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { AuthGuard } from 'src/guards/auth.guard';
 import { AdminGuard } from 'src/guards/admin.guard';
 import { DevopsGuard } from 'src/guards/devops.guard';
+import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'projects', pathMatch: 'full'},
@@ -39,6 +40,7 @@ const routes: Routes = [
   {path: 'tasks/create', component: TaskCreateComponent, canActivate: [AuthGuard]},
   {path: 'tasks/details/:id', component: TaskDetailsComponent, canActivate: [AuthGuard]},
   {path: 'tasks/edit/:id', component: TaskEditComponent, canActivate: [AuthGuard]},
+  {path: '**', component: NotFoundPageComponent}
 ];
 
 @NgModule({
