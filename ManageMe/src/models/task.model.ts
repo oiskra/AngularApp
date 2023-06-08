@@ -9,7 +9,7 @@ export type Task = {
     task_durationInHours: number;
     task_state: State;
     task_addedAt: Date;
-    task_startedAt?: Date; //stan zmieniony na doing
-    task_finishedAt?: Date; //stan zmieniony na done
+    task_startedAt?: Date; 
+    task_finishedAt?: Date;
     task_assignedEmployeeId: number;
 }

@@ -45,7 +45,6 @@ export class FunctionalitiesDetailsComponent implements OnInit, OnDestroy {
       switchMap(users => this.details.tasks.pipe(map(tasks => [users, tasks]))),
       map(([users, tasks]) => {
         return (users as User[]).filter((user: User) => {
-          console.log(user);
           
           return user.user_id === this.selectedFunctionality?.functionality_ownerId || (tasks as Task[]).some(task => {
             return (task as Task).task_assignedEmployeeId === user.user_id
