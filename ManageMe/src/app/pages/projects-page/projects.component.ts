@@ -14,6 +14,7 @@ import { ProjectService } from 'src/services/project.service';
 export class ProjectsComponent implements OnInit {
   protected projects$!: Observable<Project[]>;
   protected displayedColumns!: string[];
+  protected displayCreateButton!: boolean;
 
   constructor(private router: Router, 
     protected projectService: ProjectService,
@@ -23,7 +24,9 @@ export class ProjectsComponent implements OnInit {
     this.projects$ = this.projectService.getAllProjects();
     
     this.auth.loggedUser$.subscribe(user => {
-      this.displayedColumns = user?.user_role === Role.ADMIN || user?.user_role === Role.DEVOPS ? 
+      const isAdminOrDevops: boolean = user?.user_role === Role.ADMIN || user?.user_role === Role.DEVOPS;
+      this.displayCreateButton = isAdminOrDevops;
+      this.displayedColumns = isAdminOrDevops ? 
         ['Name', 'Description', 'Edit', 'Delete'] :
         ['Name', 'Description'];
     })

@@ -1,4 +1,4 @@
-<app-page-header title="Projects" buttonTitle="Create Project" (headerButtonClick)="onAddProjectClick()" [displayButton]="true"></app-page-header>
+<app-page-header title="Projects" buttonTitle="Create Project" (headerButtonClick)="onAddProjectClick()" [displayButton]="displayCreateButton"></app-page-header>
 <div class="table-wrapper">
     <table mat-table [dataSource]="projects$" class="mat-elevation-z8">
         <ng-container matColumnDef="Name">

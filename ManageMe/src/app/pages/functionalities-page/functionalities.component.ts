@@ -17,6 +17,7 @@ export class FunctionalitiesComponent implements OnInit, OnDestroy {
   protected functionalities = new MatTableDataSource<Functionality>();
   protected functionalitiesSub$!: Subscription;
   protected displayedColumns!: string[];
+  protected displayCreateButton!: boolean;  
 
   protected filterStateSelect: FormControl<string | null> = new FormControl();
   protected filterStateSelectSub$!: Subscription;
@@ -37,7 +38,9 @@ export class FunctionalitiesComponent implements OnInit, OnDestroy {
     })
 
     this.auth.loggedUser$.subscribe(user => {
-      this.displayedColumns = user?.user_role === Role.ADMIN || user?.user_role === Role.DEVOPS ? 
+      const isAdminOrDevops: boolean = user?.user_role === Role.ADMIN || user?.user_role === Role.DEVOPS;
+      this.displayCreateButton = isAdminOrDevops;
+      this.displayedColumns = isAdminOrDevops ? 
         ['Name', 'State', 'Edit', 'Delete'] :
         ['Name', 'State'];
     })
