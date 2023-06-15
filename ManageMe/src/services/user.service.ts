@@ -32,7 +32,6 @@ export class UserService {
       user_surname: "Min",
       user_role: 'admin' as Role,
     }
-    
   ]);
 
 

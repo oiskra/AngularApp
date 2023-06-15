@@ -11,14 +11,18 @@
                     <a *ngIf="(currentUser$ | async)?.user_role === 'admin'" mat-list-item routerLink="users">Users</a>
                 </mat-nav-list>
             </div>
-            <mat-card>
+            <mat-card >
                 <mat-card-header>
                     <div mat-card-avatar>
                         <button mat-icon-button (click)="onLogoutClick()">
                             <mat-icon>logout</mat-icon>
                         </button>
                     </div>
-                    <mat-card-title>{{(currentUser$ | async)?.user_name}} {{(currentUser$ | async)?.user_surname}}</mat-card-title>
+                    <mat-card-title>
+                        <a [routerLink]="['/users/details', (currentUser$ | async)?.user_id]">
+                            {{(currentUser$ | async)?.user_name}} {{(currentUser$ | async)?.user_surname}}
+                        </a>
+                    </mat-card-title>
                     <mat-card-subtitle>{{(currentUser$ | async)?.user_role}}</mat-card-subtitle>
                 </mat-card-header>
             </mat-card>

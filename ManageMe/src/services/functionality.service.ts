@@ -12,8 +12,8 @@ export class FunctionalityService {
     new BehaviorSubject<Functionality[]>([
       {
         functionality_ID: 0,
-        functionality_name: 'functionality0',
-        functionality_description: 'desc0',
+        functionality_name: 'Example Functionality 1',
+        functionality_description: 'This is an example functionality 1.',
         functionality_priority: 1,
         functionality_projectId: 1,
         functionality_ownerId: 1,
@@ -21,31 +21,13 @@ export class FunctionalityService {
       },
       {
         functionality_ID: 1,
-        functionality_name: 'functionality1',
-        functionality_description: 'desc1',
+        functionality_name: 'Example Functionality 2',
+        functionality_description: 'This is an example functionality 2.',
         functionality_priority: 1,
         functionality_projectId: 1,
         functionality_ownerId: 1,
         functionality_state: 'TODO',
-      },
-      {
-        functionality_ID: 2,
-        functionality_name: 'functionality2',
-        functionality_description: 'desc2',
-        functionality_priority: 1,
-        functionality_projectId: 1,
-        functionality_ownerId: 1,
-        functionality_state: 'TODO',
-      },
-      {
-        functionality_ID: 3,
-        functionality_name: 'Example Functionality',
-        functionality_description: 'This is an example functionality.',
-        functionality_priority: 2,
-        functionality_projectId: 1,
-        functionality_ownerId: 1,
-        functionality_state: 'TODO',
-      },
+      }
     ]);
 
   private functionalities$: Observable<Functionality[]> =

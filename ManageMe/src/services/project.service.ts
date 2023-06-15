@@ -9,16 +9,7 @@ import { FunctionalityService } from './functionality.service';
 export class ProjectService {
 
   private _projects: BehaviorSubject<Project[]> = new BehaviorSubject([
-    {project_ID: 0, project_name: 'Angular Project', project_description: 'Cool app!'},
-    {project_ID: 1, project_name: 'React Project', project_description: 'Cooler app!'},
-    {project_ID: 2, project_name: 'Angular Project', project_description: 'Cool app!'},
-    {project_ID: 3, project_name: 'React Project', project_description: 'Cooler app!'},
-    {project_ID: 4, project_name: 'Angular Project', project_description: 'Cool app!'},
-    {project_ID: 5, project_name: 'React Project', project_description: 'Cooler app!'},
-    {project_ID: 6, project_name: 'Angular Project', project_description: 'Cool app!'},
-    {project_ID: 7, project_name: 'React Project', project_description: 'Cooler app!'},
-    {project_ID: 8, project_name: 'Angular Project', project_description: 'Cool app!'},
-    {project_ID: 9, project_name: 'React Project', project_description: 'Cooler app!'}
+    {project_ID: 1, project_name: 'Angular Project', project_description: 'Cool app!'},
   ]);
   
   private projects$: Observable<Project[]> = this._projects.asObservable();

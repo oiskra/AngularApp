@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription, map } from 'rxjs';
 import { Task } from 'src/models/task.model';
 import { User } from 'src/models/user.model';
@@ -19,7 +19,8 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute,
     private taskService: TaskService,
-    private userService: UserService) {}
+    private userService: UserService,
+    private router: Router) {}
   
   ngOnInit(): void {
     this.routeSub$ = this.route.params.subscribe((params) => {
@@ -33,6 +34,10 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.routeSub$.unsubscribe()
+    this.routeSub$.unsubscribe();
+  }
+
+  onEditButtonClick() {
+    this.router.navigateByUrl('/users/edit/' + this.selectedId);
   }
 }

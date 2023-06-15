@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Role, User } from 'src/models/user.model';
+import { AuthService } from 'src/services/auth.service';
 import { UserService } from 'src/services/user.service';
 
 @Component({
@@ -10,9 +12,10 @@ import { UserService } from 'src/services/user.service';
   templateUrl: './user-edit.component.html',
   styleUrls: ['./user-edit.component.scss']
 })
-export class UserEditComponent implements OnInit {
+export class UserEditComponent implements OnInit, OnDestroy {
   private selectedId!: number;
   public selectedUser?: User;
+  private paramSub$!: Subscription;
   protected editForm = this.formBuilder.group({
     name: ['', Validators.required],
     surname: ['', Validators.required],
@@ -28,10 +31,11 @@ export class UserEditComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, 
     private activeRoute: ActivatedRoute, 
     private userService: UserService,
-    private snackBar: MatSnackBar) {}
+    private snackBar: MatSnackBar,
+    private auth: AuthService) {}
   
   ngOnInit(): void {
-    this.activeRoute.params.subscribe(param => {
+    this.paramSub$ = this.activeRoute.params.subscribe(param => {
       this.selectedId = Number(param['id']);
       this.selectedUser = this.userService.getUser(this.selectedId);
     });
@@ -43,6 +47,16 @@ export class UserEditComponent implements OnInit {
       login: this.selectedUser?.user_login!,
       password: this.selectedUser?.user_password!
     });
+
+    this.auth.loggedUser$.subscribe(user => {
+      if(user?.user_role !== Role.ADMIN){
+        this.editForm.get('role')?.disable();
+      }
+    }).unsubscribe();
+  }
+
+  ngOnDestroy(): void {
+    this.paramSub$.unsubscribe();
   }
 
   onSubmit() {
